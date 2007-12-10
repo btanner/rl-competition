@@ -1,4 +1,4 @@
-#/bin/bash
+#!/bin/bash
 
 ###Change these if necessary ###
 basePath=../..   #Path to the main rl-competition directory

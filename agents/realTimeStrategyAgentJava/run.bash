@@ -1,4 +1,4 @@
-#/bin/bash
+#!/bin/bash
 #Variables
 compLib=../../system/libraries/RLVizLib.jar
 
