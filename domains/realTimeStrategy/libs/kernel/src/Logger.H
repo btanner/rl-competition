@@ -6,6 +6,8 @@
 #include <iostream>
 #include <sstream>
 
+#include "Global.H"
+
 /* At the moment, this is a simple wrapper around ostringstream. */
 class Logger
 {
@@ -18,6 +20,7 @@ public:
 
   void append(const std::string & str);
   std::string str();  
+  std::string str(int chunkSize, int startChar);  
   void dump_to_file(const char * filename);  
 };
 

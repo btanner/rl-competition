@@ -364,15 +364,22 @@ Message env_message(const Message inMessage) {
     
     return (Message)msg_response.c_str();
   }
-  else if (strcmp(inMessage, "TO=3 FROM=0 CMD=7 VALTYPE=3 VALS=NULL") == 0)
+  else if (strncmp(inMessage, "TO=3 FROM=0 CMD=7 VALTYPE=0 VALS=", 33) == 0)
   {
     // get a log of the episode so far
     
-    string eplog = episode_log->str(); 
+    // get the chunk size and start char
+    string msg(inMessage+33);
+    vector<string> tokens; 
+    boost::split(tokens, msg, boost::is_any_of(":"));
+    int chunkSize = to_int(tokens[0]); 
+    int startChar = to_int(tokens[1]); 
+    
+    string eplog = episode_log->str(chunkSize, startChar); 
     boost::replace_all(eplog, "=", "$");
     
     string resp = "TO=0 FROM=3 CMD=0 VALTYPE=3 VALS=";
-    resp.append("1:"); // Brian asked for this to be prepended
+    //resp.append("1:"); // Brian asked for this to be prepended (no longer needed)
     resp.append(eplog);
     
     DPR << "responding: " << resp << endl;
