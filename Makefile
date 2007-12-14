@@ -22,6 +22,7 @@ all: $(BIN_PATH)/RL_glue
 clean:
 	-rm -f $(BUILD_PATH)/*
 	-rm -f $(BIN_PATH)/RL_glue
+	-rm -f $(BIN_PATH)/RL_glue.exe
 	-rm -f ./system/includes/*.pyc
 	-rm -f $(RL_GLUE_PATH)/Python/rlglue/*.pyc
 	-rm -f $(RL_GLUE_PATH)/Python/rlglue/network/*.pyc
