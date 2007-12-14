@@ -13,8 +13,9 @@
 * 
 * You should have received a copy of the GNU General Public License
 * along with this program; if not, write to the Free Software
-* Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA. */import rlglue.agent.Agent;
+* Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA. */
 package RTSAgent;
+import rlglue.agent.Agent;
 import rlglue.types.Action;
 import rlglue.types.Observation;
 import java.util.ArrayList;
