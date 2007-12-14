@@ -7,6 +7,7 @@ rtsExe=$basePath/domains/realTimeStrategy/bin/rlgenv
 
 guiLib=$libPath/forms-1.1.0.jar
 envShellLib=$libPath/EnvironmentShell.jar
+pKillScript=$systemPath/bin/pkill
 
 RLVIZ_LIB_PATH=$PWD/$libPath
 ENV_CLASSPATH=$compLib:$envShellLib
@@ -50,7 +51,10 @@ if [ ! -e "$rtsExe" ]       # Check if file exists.
 checkIfRLGlueExists(){
 if [ ! -e "$glueExe" ]       # Check if file exists.
   then
-    echo "RL_glue not found at $glueExe.  Did you remember to \"make \" from the main competition directory?"; echo
+	makeLine
+    echo "RL_glue not found at $glueExe.  "
+	echo "Did you remember to \"make \" from the main competition directory?"
+  	makeLine
     exit
    fi
 }
@@ -94,8 +98,13 @@ wait $envShellPID
 echo "++ Dynamic environment loader terminated"
 }
 
+killRLGlue(){
+$pKillScript RL_glue
+}
 startRLGlueInBackGround(){
 checkIfRLGlueExists
+#Make sure its not running from before
+killRLGlue
 $glueExe &
 gluePID=$!
 echo "Starting up RL-glue - PID=$gluePID"
