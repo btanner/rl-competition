@@ -31,7 +31,7 @@ void agent_init(Task_specification ts)
 {
 	task_spec_struct ps;
 	parse_task_spec(ts, &ps);
-
+	srand48(0);
 	oldAction.numInts = ps.num_discrete_action_dims;
 	oldAction.numDoubles = ps.num_continuous_action_dims;
 	oldAction.intArray = (int*)malloc(sizeof(int)*oldAction.numInts);
