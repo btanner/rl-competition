@@ -121,10 +121,6 @@ privateExtraPath="$1"
 privatePackageName="$2"
 privateClassName="$3"
 privateMaxMemory="$4"
-echo "Extra Path is $privateExtraPath"
-echo "Package is $privatePackageName"
-echo "Class is $privateClassName"
-echo "Max Memory is $privateMaxMemory"
 
 agentPath=$compLib:$privateExtraPath
 #Sortof a hack for now
