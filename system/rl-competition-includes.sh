@@ -28,6 +28,8 @@ then
 	RLVIZ_LIB_PATH=`cygpath -wp $RLVIZ_LIB_PATH`
 	ENV_CLASSPATH=`cygpath -wp $ENV_CLASSPATH`
 	VIZ_CLASSPATH=`cygpath -wp $VIZ_CLASSPATH`
+	vizAppLib=`cygpath -wp $vizAppLib`
+	compLib=`cygpath -wp $compLib`
 fi
 }
 
