@@ -119,7 +119,8 @@ echo "Max Memory is $privateMaxMemory"
 
 agentPath=$compLib:$privateExtraPath
 #Sortof a hack for now
-if [[ `uname` == CYGWIN* ]] then 
+if [[ `uname` == CYGWIN* ]]
+then 
 	agentPath=`cygpath -wp $agentPath`
 fi
 java -Xmx$privateMaxMemory -cp $agentPath rlglue.agent.AgentLoader $privatePackageName.$privateClassName
@@ -136,7 +137,8 @@ echo "Max Memory is $privateMaxMemory"
 
 agentPath=$compLib:$privateExtraPath
 #Sortof a hack for now
-if [[ `uname` == CYGWIN* ]] then 
+if [[ `uname` == CYGWIN* ]]
+then 
 	agentPath=`cygpath -wp $agentPath`
 fi
 
