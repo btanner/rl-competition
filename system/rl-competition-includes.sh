@@ -116,7 +116,13 @@ echo "Extra Path is $privateExtraPath"
 echo "Package is $privatePackageName"
 echo "Class is $privateClassName"
 echo "Max Memory is $privateMaxMemory"
-java -Xmx$privateMaxMemory -cp $compLib:$privateExtraPath rlglue.agent.AgentLoader $privatePackageName.$privateClassName
+
+agentPath=$compLib:$privateExtraPath
+#Sortof a hack for now
+if [[ `uname` == CYGWIN* ]] then 
+	agentPath=`cygpath -wp $agentPath`
+fi
+java -Xmx$privateMaxMemory -cp $agentPath rlglue.agent.AgentLoader $privatePackageName.$privateClassName
 }
 startJavaAgentInBackGround(){
 privateExtraPath="$1"
@@ -127,7 +133,14 @@ echo "Extra Path is $privateExtraPath"
 echo "Package is $privatePackageName"
 echo "Class is $privateClassName"
 echo "Max Memory is $privateMaxMemory"
-java -Xmx$privateMaxMemory -cp $compLib:$privateExtraPath rlglue.agent.AgentLoader $privatePackageName.$privateClassName &
+
+agentPath=$compLib:$privateExtraPath
+#Sortof a hack for now
+if [[ `uname` == CYGWIN* ]] then 
+	agentPath=`cygpath -wp $agentPath`
+fi
+
+java -Xmx$privateMaxMemory -cp $agentPath rlglue.agent.AgentLoader $privatePackageName.$privateClassName &
 agentPID=$!
 }
 waitForAgentToDie(){
