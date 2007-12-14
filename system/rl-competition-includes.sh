@@ -1,5 +1,6 @@
 libPath=$systemPath/libraries
 compLib=$libPath/RLVizLib.jar
+vizAppLib=$libPath/RLVizApp.jar
 
 glueExe=$systemPath/RL_glue
 rtsExe=$basePath/domains/realTimeStrategy/bin/rlgenv
@@ -9,7 +10,7 @@ envShellLib=$libPath/EnvironmentShell.jar
 
 RLVIZ_LIB_PATH=$PWD/$libPath
 ENV_CLASSPATH=$compLib:$envShellLib
-VIZ_CLASSPATH=$compLib:$guiLib:./bin/RLVizApp.jar
+VIZ_CLASSPATH=$compLib:$guiLib:$vizAppLib
 
 setMacAboutName ()
 { # This is about as simple as functions get.
@@ -66,12 +67,6 @@ echo "++ Real Time Strategy terminated"
 }
 
 
-startRLGlueInBackGround(){
-checkIfRLGlueExists
-$glueExe &
-gluePID=$!
-echo "Starting up RL-glue - PID=$gluePID"
-}
 
 startEnvShellInBackGround(){
 java -Xmx128M -DRLVIZ_LIB_PATH=$RLVIZ_LIB_PATH -classpath $ENV_CLASSPATH rlglue.environment.EnvironmentLoader environmentShell.EnvironmentShell &
@@ -97,6 +92,13 @@ wait $envShellPID
 echo "++ Dynamic environment loader terminated"
 }
 
+startRLGlueInBackGround(){
+checkIfRLGlueExists
+$glueExe &
+gluePID=$!
+echo "Starting up RL-glue - PID=$gluePID"
+}
+
 waitForRLGlueToDie(){
 echo "-- Waiting for RL_glue to die..."
 wait $gluePID
@@ -113,6 +115,23 @@ echo "Package is $privatePackageName"
 echo "Class is $privateClassName"
 echo "Max Memory is $privateMaxMemory"
 java -Xmx$privateMaxMemory -cp $compLib:$privateExtraPath rlglue.agent.AgentLoader $privatePackageName.$privateClassName
+}
+startJavaAgentInBackGround(){
+privateExtraPath="$1"
+privatePackageName="$2"
+privateClassName="$3"
+privateMaxMemory="$4"
+echo "Extra Path is $privateExtraPath"
+echo "Package is $privatePackageName"
+echo "Class is $privateClassName"
+echo "Max Memory is $privateMaxMemory"
+java -Xmx$privateMaxMemory -cp $compLib:$privateExtraPath rlglue.agent.AgentLoader $privatePackageName.$privateClassName &
+agentPID=$!
+}
+waitForAgentToDie(){
+echo "-- Waiting for the agent to die..."
+wait $agentPID
+echo "++ Agent terminated"
 }
 setMacAboutName
 setCygwinPaths
