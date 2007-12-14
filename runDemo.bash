@@ -22,7 +22,7 @@ AGENT_CLASSPATH=$compLib:$agentPath/bin
 ENV_CLASSPATH=$compLib:$envShellLib
 VIZ_CLASSPATH=$compLib:$guiLib:$demoPath/bin/RLVizApp.jar
 
-if [ `uname -o` = "Cygwin" ]
+if [[ `uname` == CYGWIN* ]]
 then
 	RLVIZ_LIB_PATH=`cygpath -wp $RLVIZ_LIB_PATH`
 	AGENT_CLASSPATH=`cygpath -wp $AGENT_CLASSPATH`

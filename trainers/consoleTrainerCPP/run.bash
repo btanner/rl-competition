@@ -15,7 +15,7 @@ consoleTrainer=./bin/consoleTrainer
 
 ENV_CLASSPATH=$compLib:$envShellLib
 
-if [ `uname -o` = "Cygwin" ]
+if [[ `uname` == CYGWIN* ]]
 then
 	glueExe="$glueExe.exe"
 	consoleTrainer="$consoleTrainer.exe"

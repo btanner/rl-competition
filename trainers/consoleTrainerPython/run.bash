@@ -14,7 +14,7 @@ glueExe=$systemPath/RL_glue
 
 ENV_CLASSPATH=$compLib:$envShellLib
 
-if [ `uname -o` = "Cygwin" ]
+if [[ `uname` == CYGWIN* ]]
 then
 	glueExe="$glueExe.exe"
 	RLVIZ_LIB_PATH=`cygpath -wp $RLVIZ_LIB_PATH`

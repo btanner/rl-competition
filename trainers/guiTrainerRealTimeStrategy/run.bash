@@ -19,7 +19,7 @@ guiLib=$libPath/forms-1.1.0.jar
 
 VIZ_CLASSPATH=$compLib:$guiLib:./bin/RLVizApp.jar
 
-if [ `uname -o` = "Cygwin" ]
+if [[ `uname` == CYGWIN* ]]
 then
 	glueExe="$glueExe.exe"
 	rtsExe="$rtsExe.exe"

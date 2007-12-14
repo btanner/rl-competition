@@ -14,7 +14,7 @@ rtsExe=$basePath/domains/realTimeStrategy/bin/rlgenv
 
 VIZ_CLASSPATH=$compLib:./bin/
 
-if [ `uname -o` = "Cygwin" ]
+if [[ `uname` == CYGWIN* ]]
 then
 	glueExe="$glueExe.exe"
 	rtsExe="$rtsExe.exe"
