@@ -17,6 +17,16 @@ rtsExe=$basePath/domains/realTimeStrategy/bin/rlgenv
 
 guiLib=$libPath/forms-1.1.0.jar
 
+VIZ_CLASSPATH=$compLib:$guiLib:./bin/RLVizApp.jar
+
+if [ `uname -o` = "Cygwin" ]
+then
+	glueExe="$glueExe.exe"
+	rtsExe="$rtsExe.exe"
+	RLVIZ_LIB_PATH=`cygpath -wp $RLVIZ_LIB_PATH`
+	VIZ_CLASSPATH=`cygpath -wp $VIZ_CLASSPATH`
+fi
+
 #
 # First do a quick check to see if the RL_glue exe exists.  If it does not, they probably have not done a "make all" yet
 #
@@ -50,7 +60,7 @@ echo "Starting up real time strategy - PID=$rtsPID"
 #Start the visualizer program
 #
 macAboutNameCommand=-Dcom.apple.mrj.application.apple.menu.about.name=RLVizApp
-java -Xcheck:jni -DRLVIZ_LIB_PATH=$RLVIZ_LIB_PATH $macAboutNameCommand -Xmx128M -cp $compLib:$guiLib:./bin/RLVizApp.jar btViz.NoDynamicLoadingGraphicalDriver
+java -Xcheck:jni -DRLVIZ_LIB_PATH=$RLVIZ_LIB_PATH $macAboutNameCommand -Xmx128M -classpath $VIZ_CLASSPATH btViz.NoDynamicLoadingGraphicalDriver
 
 echo "-- Visualizer is finished"
 

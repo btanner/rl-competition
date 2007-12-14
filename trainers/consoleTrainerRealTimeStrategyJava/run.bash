@@ -12,6 +12,16 @@ compLib=$libPath/RLVizLib.jar
 glueExe=$systemPath/RL_glue
 rtsExe=$basePath/domains/realTimeStrategy/bin/rlgenv
 
+VIZ_CLASSPATH=$compLib:./bin/
+
+if [ `uname -o` = "Cygwin" ]
+then
+	glueExe="$glueExe.exe"
+	rtsExe="$rtsExe.exe"
+	RLVIZ_LIB_PATH=`cygpath -wp $RLVIZ_LIB_PATH`
+	VIZ_CLASSPATH=`cygpath -wp $VIZ_CLASSPATH`
+fi
+
 #
 # First do a quick check to see if the RL_glue exe exists.  If it does not, they probably have not done a "make all" yet
 #
@@ -41,7 +51,7 @@ $rtsExe &
 rtsPID=$!
 echo "Starting up real time strategy game - PID=$rtsPID"
 
-java -DRLVIZ_LIB_PATH=$RLVIZ_LIB_PATH -Xmx128M -cp $compLib:./bin/ realTimeStrategyTrainerJava
+java -DRLVIZ_LIB_PATH=$RLVIZ_LIB_PATH -Xmx128M -classpath $VIZ_CLASSPATH realTimeStrategyTrainerJava
 
 echo "-- Console Real Time Strategy Trainer finished"
 

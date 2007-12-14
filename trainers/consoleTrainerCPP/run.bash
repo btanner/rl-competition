@@ -11,16 +11,27 @@ compLib=$libPath/RLVizLib.jar
 envShellLib=$libPath/EnvironmentShell.jar
 
 glueExe=$systemPath/RL_glue
+consoleTrainer=./bin/consoleTrainer
+
+ENV_CLASSPATH=$compLib:$envShellLib
+
+if [ `uname -o` = "Cygwin" ]
+then
+	glueExe="$glueExe.exe"
+	consoleTrainer="$consoleTrainer.exe"
+	RLVIZ_LIB_PATH=`cygpath -wp $RLVIZ_LIB_PATH`
+	ENV_CLASSPATH=`cygpath -wp $ENV_CLASSPATH`
+fi
 
 $glueExe &
 gluePID=$!
 echo "Starting up RL-glue - PID=$gluePID"
 
-java -DRLVIZ_LIB_PATH=$RLVIZ_LIB_PATH -Xmx128M -cp $compLib:$envShellLib rlglue.environment.EnvironmentLoader environmentShell.EnvironmentShell &
+java -DRLVIZ_LIB_PATH=$RLVIZ_LIB_PATH -Xmx128M -classpath $ENV_CLASSPATH rlglue.environment.EnvironmentLoader environmentShell.EnvironmentShell &
 envShellPID=$!
 echo "Starting up dynamic environment loader - PID=$envShellPID"
 
-./bin/consoleTrainer
+$consoleTrainer
 
 
 echo "-- Console Trainer is finished"

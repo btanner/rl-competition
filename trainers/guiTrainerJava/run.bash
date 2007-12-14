@@ -14,11 +14,22 @@ envShellLib=$libPath/EnvironmentShell.jar
 
 RLVIZ_LIB_PATH=$PWD/$libPath
 
+ENV_CLASSPATH=$compLib:$envShellLib
+VIZ_CLASSPATH=$compLib:$guiLib:./bin/RLVizApp.jar
+
+if [ `uname -o` = "Cygwin" ]
+then
+	glueExe="$glueExe.exe"
+	RLVIZ_LIB_PATH=`cygpath -wp $RLVIZ_LIB_PATH`
+	ENV_CLASSPATH=`cygpath -wp $ENV_CLASSPATH`
+	VIZ_CLASSPATH=`cygpath -wp $VIZ_CLASSPATH`
+fi
+
 $glueExe &
 gluePID=$!
 echo "Starting up RL-glue - PID=$gluePID"
 
-java -Xmx128M -DRLVIZ_LIB_PATH=$RLVIZ_LIB_PATH -cp $compLib:$envShellLib rlglue.environment.EnvironmentLoader environmentShell.EnvironmentShell &
+java -Xmx128M -DRLVIZ_LIB_PATH=$RLVIZ_LIB_PATH -classpath $ENV_CLASSPATH rlglue.environment.EnvironmentLoader environmentShell.EnvironmentShell &
 envShellPID=$!
 echo "Starting up dynamic environment loader - PID=$envShellPID"
 
@@ -26,7 +37,7 @@ echo "Starting up dynamic environment loader - PID=$envShellPID"
 #Start the visualizer program
 #
 macAboutNameCommand=-Dcom.apple.mrj.application.apple.menu.about.name=RLVizApp
-java -Xmx128M -DRLVIZ_LIB_PATH=$RLVIZ_LIB_PATH $macAboutNameCommand -cp $compLib:$guiLib:./bin/RLVizApp.jar btViz.GraphicalDriver
+java -Xmx128M -DRLVIZ_LIB_PATH=$RLVIZ_LIB_PATH $macAboutNameCommand -classpath $VIZ_CLASSPATH btViz.GraphicalDriver
 
 echo "-- Visualizer is finished"
 
