@@ -1,5 +1,5 @@
 
-AGENT = RandomAgent.cpp
+AGENT = ZeroAgent.cpp
 AGENT_OBJECTS = $(basename $(AGENT)).o Glue_utilities.o
 
 AGENT_SRC_PATH = ./src

@@ -21,20 +21,18 @@
 #include <time.h>
 #include <assert.h>
 #include "Glue_utilities.h"
-#include "RandomAgent.h"
+#include "ZeroAgent.h"
 
 Action action;
 
 int freeze = 0;
 task_spec_struct tss;					/*declare task_spec_struct*/
 
-void randomify(Action action);
+void zeroify(Action action);
 
 void agent_init(const Task_specification task_spec)
 {
-  srand(0);/*seed the randomness*/
-	srand48(0);
-  
+
   assert (task_spec != 0);
   parse_task_spec(task_spec, &tss);		/*Parsing task_specification*/	
 
@@ -46,13 +44,12 @@ void agent_init(const Task_specification task_spec)
 }
 
 Action agent_start(Observation o) {
-	randomify(action);
-	/*ask(o,action);*/
+	zeroify(action);
 	return action;
 }
 
 Action agent_step(double reward, Observation o) {
-	randomify(action);
+	zeroify(action);
 	return action;
 }
 
@@ -75,16 +72,16 @@ double getValueForState(Observation theObservation) {
 }
 	
 
-void randomify(Action action){
+void zeroify(Action action){
 	int i;
 	int i_index=0;
 	int d_index=0;
 	for (i=0;i<tss.action_dim;i++) {
 		if (tss.action_types[i] == 'i') {
-			action.intArray[i_index++] = rand()%((int)tss.action_maxs[i]+1-(int)tss.action_mins[i]) + (int)tss.action_mins[i];
+			action.intArray[i_index++] = 0;
 		}
 		else {
-			action.doubleArray[d_index++] = drand48()*(tss.action_maxs[i]-tss.action_mins[i]) + tss.action_mins[i];
+			action.doubleArray[d_index++] = 0;
 		}
 	}
 }
