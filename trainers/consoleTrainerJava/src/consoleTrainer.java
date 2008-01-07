@@ -25,8 +25,8 @@ public class consoleTrainer {
 
 		// Uncomment ONE of the following lines to choose your experiment
 		//consoleTrainerHelper.loadTetris(whichTrainingMDP); //whichTrainingMDP should be in [0,19]
-//		consoleTrainerHelper.loadHelicopter(whichTrainingMDP);	//whichTrainingMDP should be in [0,9]
-		consoleTrainerHelper.loadMountainCar(whichTrainingMDP);//whichTrainingMDP should be in [0,29]
+		consoleTrainerHelper.loadHelicopter(whichTrainingMDP);	//whichTrainingMDP should be in [0,9]
+//		consoleTrainerHelper.loadMountainCar(whichTrainingMDP);//whichTrainingMDP should be in [0,29]
 
 	
 		RLGlue.RL_init();
