@@ -17,29 +17,17 @@
 import rlglue.RLGlue;
 import java.io.IOException;
 
-public class realTimeStrategyTrainerJava
-{
-	//maximum number of steps per MDP
-	int rtsStepLimit=60000;
-	int thisMDPNumber;
-	
-	public static void main(String[] args) throws InterruptedException {
+public class RealTimeStrategyMultiTrainer
+{	
+	public static void main(String[] args) {
 		double totalReturn = 0.0d;
-
+		int rtsStepLimit=60000;
 		//Uncomment one of the two lines below depending if you want random order or sequential order
-		thisMDPNumber=getNextRandomMDPNumber();
 		//int thisMDPNumber=i;
 
-		totalReturn+=runCurrentMDP(rtsStepLimit);
-
-		System.out.println("All MDPs have finished with a total reward of "+totalReturn);
-	}
-
-	protected double runCurrentMDP(int mdpStepLimit){
 		RLGlue.RL_init();
-		int stepsRemaining = mdpStepLimit;
+		int stepsRemaining = rtsStepLimit;
 		int totalEpisodes = 0;
-		double returnThisMDP=0.0d;
 
 		while (stepsRemaining > 0) {
             RLGlue.RL_episode(stepsRemaining);
@@ -47,11 +35,12 @@ public class realTimeStrategyTrainerJava
             int thisStepCount = RLGlue.RL_num_steps();
             stepsRemaining -= thisStepCount;
 
-            returnThisMDP += RLGlue.RL_return();
+            totalReturn += RLGlue.RL_return();
             totalEpisodes++;
         }
-		System.out.println("Mdp " + thisMDPNumber + " completed with " + totalEpisodes + " episodes");
+		System.out.println("Mdp completed with " + totalEpisodes + " episodes");
 		RLGlue.RL_cleanup();
-		return returnThisMDP;
+
+		System.out.println("All MDPs have finished with a total reward of "+totalReturn);
 	}
 }
