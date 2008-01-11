@@ -15,7 +15,7 @@ ifeq ($(suffix $(AGENT)),.cpp)
 	CC = $(CXX)
 endif
 
-all: RL_agent
+all: $(BIN_PATH)/RL_agent
 
 include $(RL_GLUE_PATH)/RL_glue.makefile
 

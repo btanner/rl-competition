@@ -10,6 +10,8 @@ export PATH +=:$(RCSSBASE)/bin
 export LD_LIBRARY_PATH=$(BOOST_ROOT)/lib:$(RCSSBASE)/lib:$(RCSSBASE)/lib/rcssserver/modules
 export DYLD_FALLBACK_LIBRARY_PATH=$(BOOST_ROOT)/lib:$(RCSSBASE)/lib:$(RCSSBASE)/lib/rcssserver/modules
 
+all: rcssbase rcssserver rcssmonitor tools player
+
 rcssbase:
 	cd rcss-src/rcssbase-11.1.0 && ./configure --prefix=$(RCSSBASE) --with-boost=$(BOOST_ROOT)
 	cd rcss-src/rcssbase-11.1.0 && make
