@@ -2863,7 +2863,7 @@ void WorldModel::checkParticlesBall( VecPosition posArray[],
   double dDistBall, dDistChange = UnknownDoubleValue;
   AngDeg angBall,  angChange;
   double dDistChTmp;
-  AngDeg angChTmp, angChMin, angChMax;
+  AngDeg angChTmp, angChMin=0.0, angChMax=0.0;
   VecPosition pos_rel, vel_rel;
 
   // no new perceptions, do not check
