@@ -67,6 +67,8 @@ class WorldModelSayMsgFactory : public SayMsgFactory
 
   TeammatePos *getTeammatePos(){ return new WMTeammatePos( WM ); }
 
+	virtual ~WorldModelSayMsgFactory() {}
+
 } ;
 
 #endif

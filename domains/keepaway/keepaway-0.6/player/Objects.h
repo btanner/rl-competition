@@ -74,6 +74,7 @@ protected:
 
 public:
   Object( );
+	virtual ~Object() {};
 
   /*! abstract function that should be defined in a subclass */
   virtual void show( ostream& os = cout ) = 0;

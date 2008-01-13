@@ -10,8 +10,9 @@ TARGET  = keepaway_player
 
 # ==== INCLUDES =================================================
 
-SOCCER_INCLUDES	= 
-INCLUDES	= $(SOCCER_INCLUDES)
+SOCCER_INCLUDES	=
+RL_GLUE_INCLUDES = -I ../../../../system/RL-Glue/RL-Glue -I ../../../../system/RL-Glue/RL-Glue/Network 
+INCLUDES	= $(SOCCER_INCLUDES) $(RL_GLUE_INCLUDES)
 
 # ==== FLAGS ====================================================
 
