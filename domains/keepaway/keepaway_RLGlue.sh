@@ -68,8 +68,8 @@ save_rcl_log=0                   # should I save message lof to .rcl file?
 log_dir=$keepaway_dir/logs       # directory to store kwy, rcg, and rcl logs
 
 port=5800                        # server port used by players and monitor
-coach_port=$[port + 1]           # server port used by offline trainer
-olcoach_port=$[port + 2]         # server port used by online coach
+coach_port=5801                  # server port used by offline trainer
+olcoach_port=5802                # server port used by online coach
 sleep_time=8                     # time (in seconds) before starting PlayOn mode
 
 launch_monitor=1                 # should I launch rcssmonitor on startup?
@@ -94,7 +94,7 @@ proc_name=$date-$machine
 save_dir=$weight_dir/$proc_name
 log_save_dir=$client_log_dir/$proc_name
 
-keepaway_mode=$[!use_trainer]
+keepaway_mode=0
 
 s="server"
 
