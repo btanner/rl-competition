@@ -183,7 +183,7 @@ do
   #echo $kcmd_line
   $kcmd_line &
 
-	i=`expr $i + 1`
+  i=`expr $i + 1`
 done
 
 sleep 2
@@ -206,7 +206,7 @@ do
   echo Starting Taker \#$i...
   #echo $tcmd_line
   $tcmd_line &
-	i=`expr $i + 1`
+  i=`expr $i + 1`
 done
 
 sleep 2
