@@ -160,7 +160,7 @@ sleep 2
 echo Starting Clients....
 
 i=1
-until [ "$i" -eq $num_keepers ]
+until [ "$i" -eq "$num_keepers" ]
 do
   if [ $save_client_log ]; then
     klog_opts="-l $log_level -o $log_save_dir/k$i.log"
@@ -188,7 +188,7 @@ done
 
 sleep 2
 i=1
-until [ "$i" -eq $num_takers ]
+until [ "$i" -eq "$num_takers" ]
 do
   if [ $save_client_log ]; then
     tlog_opts="-l $log_level -o $log_save_dir/t$i.log"
