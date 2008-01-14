@@ -105,7 +105,7 @@ rcg_log_opts="$s::game_logging=$save_rcg_log $s::game_log_dir=$log_dir $s::game_
 rcl_log_opts="$s::text_logging=$save_rcl_log $s::text_log_dir=$log_dir $s::text_log_compression=0 $s::text_log_fixed=1 $s::text_log_fixed_name=$proc_name"
 log_opts="$kwy_log_opts $rcg_log_opts $rcl_log_opts"
 
-if (( $unrestricted_vision )); then
+if [ $unrestricted_vision ]; then
 #  vision_opts="$s::visible_angle=360 $s::quantize_step=.00001 $s::quantize_step_l=.00001"
   vision_opts="$s::visible_angle=360"
 fi
@@ -118,7 +118,7 @@ taker_opts="-t takers -e $taker_learn -q $taker_policy"
 
 client_opts="-p $port -k $num_keepers -j $num_takers -x $stop_after -y $start_learning_after"
 
-if (( $save_weights && $taker_learn )); then
+if [ $save_weights -a $taker_learn ]; then
   echo Creating weights directory: $save_dir
   mkdir $save_dir
   if [ ! -d $save_dir ]; then
@@ -127,7 +127,7 @@ if (( $save_weights && $taker_learn )); then
   fi
 fi
 
-if (( $save_client_log || $save_client_draw_log )); then
+if [ $save_client_log -o $save_client_draw_log ]; then
   mkdir -p $log_save_dir
   if [ ! -d $log_save_dir ]; then
     echo Unable to create client log directory: $log_save_dir
@@ -135,7 +135,7 @@ if (( $save_client_log || $save_client_draw_log )); then
   fi
 fi
 
-if (( $save_kwy_log || $save_rcg_log || $save_rcl_log || $save_trainer_log )); then
+if [ $save_kwy_log -o $save_rcg_log -o $save_rcl_log -o $save_trainer_log ]; then
   mkdir -p $log_dir
   if [ ! -d $log_dir ]; then
     echo Unable to find log directory: $log_dir
@@ -143,11 +143,11 @@ if (( $save_kwy_log || $save_rcg_log || $save_rcl_log || $save_trainer_log )); t
   fi
 fi
 
-if (( $save_kwy_log && $use_trainer )); then
+if [ $save_kwy_log -a $use_trainer ]; then
   trainer_log_opts="-kwy $log_dir/$proc_name.kwy"
 fi
 
-if (( $save_trainer_log && $use_trainer )); then
+if [ $save_trainer_log -a $use_trainer ]; then
   trainer_log_opts="$trainer_log_opts -queue_file $log_dir/$proc_name.log"
 fi
 
@@ -160,21 +160,22 @@ sleep 2
 echo Starting Clients....
 pushd $client_dir
 
-for (( i=1; i<=$num_keepers; i++ ))
+i=1
+until [ "$i" -eq $num_keepers ]
 do
-  if (( $save_client_log )); then
+  if [ $save_client_log ]; then
     klog_opts="-l $log_level -o $log_save_dir/k$i.log"
   fi
-  if (( $save_client_draw_log )); then
+  if [ $save_client_draw_log ]; then
     kdraw_opts="-d 1 -a $log_save_dir/k$i-draw.log"
   fi
-  if (( $save_weights )); then
+  if [ $save_weights ]; then
     kweight_opts="-f $save_dir/k$i-weights.dat"
   fi
-  if (( $keeper_load )); then
+  if [ $keeper_load ]; then
     kweight_opts="$kweight_opts -w $weight_dir/$keeper_load_dir/k$i-weights.dat"
   fi
-  if (( $i==1 )); then
+  if [ "$i" -eq "1" ]; then
     kcmd_line="./$client $client_opts $keeper_opts_learn $klog_opts $kdraw_opts $kweight_opts"
   else
     kcmd_line="./$client $client_opts $keeper_opts_hand $klog_opts $kdraw_opts $kweight_opts"
@@ -182,33 +183,37 @@ do
   echo Starting Keeper \#$i...
   #echo $kcmd_line
   $kcmd_line &
+
+	let i+=1
 done
 
 sleep 2
-for (( i=1; i<=$num_takers; i++ ))
+i=1
+until [ "$i" -q $num_takers ]
 do
-  if (( $save_client_log )); then
+  if [ $save_client_log ]; then
     tlog_opts="-l $log_level -o $log_save_dir/t$i.log"
   fi
-  if (( $save_client_draw_log )); then
+  if [ $save_client_draw_log ]; then
     tdraw_opts="-d 1 -a $log_save_dir/t$i-draw.log"
   fi
-  if (( $save_weights && $taker_learn )); then
+  if [ $save_weights && $taker_learn ]; then
     tweight_opts="-f $save_dir/t$i-weights.dat"
   fi
-  if (( $taker_load )); then
+  if [ $taker_load ]; then
     tweight_opts="$tweight_opts -w $weight_dir/$taker_load_dir/t$i-weights.dat"
   fi
   tcmd_line="./$client $client_opts $taker_opts $tlog_opts $tdraw_opts $tweight_opts"
   echo Starting Taker \#$i...
   #echo $tcmd_line
   $tcmd_line &
+	let i+=1
 done
 
 sleep 2
 popd
 
-if (( $use_trainer )); then
+if [ $use_trainer ]; then
   trcmd_line="java -cp $rcssjava_dir/rcssjava.jar $trainer -port $coach_port -keepers $num_keepers -width $ka_width -length $ka_length -takers $num_takers -monitor $launch_trainer_monitor $trainer_log_opts"
   echo Starting Trainer...
   echo $trcmd_line
@@ -216,13 +221,13 @@ if (( $use_trainer )); then
   trainer_pid=$!
 fi
 
-if (( $launch_monitor )); then
+if [ $launch_monitor ]; then
   monitor_opts="rcssmonitor -m_keepaway 1 -m_keepaway_length $ka_length -m_keepaway_width $ka_width -m_port $port"
   echo Starting Monitor...
   rcssmonitor $monitor_opts &
 fi
 
-if (( $use_trainer )); then
+if [ $use_trainer ]; then
   wait $trainer_pid
   kill -INT $server_pid
 fi
