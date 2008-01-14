@@ -176,15 +176,15 @@ do
     kweight_opts="$kweight_opts -w $weight_dir/$keeper_load_dir/k$i-weights.dat"
   fi
   if [ "$i" -eq "1" ]; then
-    kcmd_line="./$client $client_opts $keeper_opts_learn $klog_opts $kdraw_opts $kweight_opts"
+    kcmd_line="$client_dir/$client $client_opts $keeper_opts_learn $klog_opts $kdraw_opts $kweight_opts"
   else
-    kcmd_line="./$client $client_opts $keeper_opts_hand $klog_opts $kdraw_opts $kweight_opts"
+    kcmd_line="$client_dir/$client $client_opts $keeper_opts_hand $klog_opts $kdraw_opts $kweight_opts"
   fi
   echo Starting Keeper \#$i...
   #echo $kcmd_line
   $kcmd_line &
 
-	let i+=1
+	i=`expr $i+1`
 done
 
 sleep 2
@@ -203,11 +203,11 @@ do
   if [ $taker_load ]; then
     tweight_opts="$tweight_opts -w $weight_dir/$taker_load_dir/t$i-weights.dat"
   fi
-  tcmd_line="./$client $client_opts $taker_opts $tlog_opts $tdraw_opts $tweight_opts"
+  tcmd_line="$client_dir/$client $client_opts $taker_opts $tlog_opts $tdraw_opts $tweight_opts"
   echo Starting Taker \#$i...
   #echo $tcmd_line
   $tcmd_line &
-	let i+=1
+	i=`expr $i+1`
 done
 
 sleep 2
