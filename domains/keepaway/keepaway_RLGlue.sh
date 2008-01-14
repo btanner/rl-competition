@@ -188,7 +188,7 @@ done
 
 sleep 2
 i=1
-until [ "$i" -q $num_takers ]
+until [ "$i" -eq $num_takers ]
 do
   if [ $save_client_log ]; then
     tlog_opts="-l $log_level -o $log_save_dir/t$i.log"
