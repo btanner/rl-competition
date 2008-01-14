@@ -196,7 +196,7 @@ do
   if [ $save_client_draw_log ]; then
     tdraw_opts="-d 1 -a $log_save_dir/t$i-draw.log"
   fi
-  if [ $save_weights && $taker_learn ]; then
+  if [ $save_weights -a $taker_learn ]; then
     tweight_opts="-f $save_dir/t$i-weights.dat"
   fi
   if [ $taker_load ]; then
