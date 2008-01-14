@@ -159,8 +159,8 @@ server_pid=$!
 sleep 2
 echo Starting Clients....
 
-i=1
-until [ "$i" -eq "$num_keepers" ]
+i=0
+while [ "$i" -ne "$num_keepers" ]
 do
   if [ $save_client_log ]; then
     klog_opts="-l $log_level -o $log_save_dir/k$i.log"
@@ -187,8 +187,8 @@ do
 done
 
 sleep 2
-i=1
-until [ "$i" -eq "$num_takers" ]
+i=0
+while [ "$i" -ne "$num_takers" ]
 do
   if [ $save_client_log ]; then
     tlog_opts="-l $log_level -o $log_save_dir/t$i.log"
