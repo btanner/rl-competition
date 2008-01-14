@@ -158,7 +158,6 @@ server_pid=$!
 
 sleep 2
 echo Starting Clients....
-pushd $client_dir
 
 i=1
 until [ "$i" -eq $num_keepers ]
@@ -211,7 +210,6 @@ do
 done
 
 sleep 2
-popd
 
 if [ $use_trainer ]; then
   trcmd_line="java -cp $rcssjava_dir/rcssjava.jar $trainer -port $coach_port -keepers $num_keepers -width $ka_width -length $ka_length -takers $num_takers -monitor $launch_trainer_monitor $trainer_log_opts"
