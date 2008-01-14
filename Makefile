@@ -18,6 +18,7 @@ all: $(BIN_PATH)/RL_glue
 	cd ./trainers/consoleTrainerPython/ && make
 	cd ./trainers/consoleTrainerCPP/ && make
 	cd ./trainers/consoleTrainerRealTimeStrategyJava/ && make
+	cd ./trainers/consoleMultiTrainers/ && make
 
 clean:
 	-rm -f $(BUILD_PATH)/*
@@ -38,5 +39,6 @@ clean:
 	cd ./trainers/consoleTrainerPython/ && make clean
 	cd ./trainers/consoleTrainerCPP/ && make clean
 	cd ./trainers/consoleTrainerRealTimeStrategyJava/ && make clean
+	cd ./trainers/consoleMultiTrainers/ && make clean
 
 include $(RL_GLUE_PATH)/RL_glue.makefile
