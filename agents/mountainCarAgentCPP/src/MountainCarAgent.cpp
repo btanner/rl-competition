@@ -53,7 +53,7 @@ void agent_init(Task_specification ts)
 
 	epsilon = 0.1;                    // probability of random action
 	alpha = 0.5;                      // step size parameter
-	lambda = 0.95;                    // trace-decay parameters	
+	lambda =1.0;                    // trace-decay parameters	
 }
 
 
