@@ -26,7 +26,7 @@ public class HelicopterMultiTrainer extends AbstractMultiTrainer {
 
 	
 	//maximum number of steps per MDP
-	int helicopterStepLimit=60000;
+	int helicopterStepLimit=6000000;
 	int thisMDPNumber;
 	
 	public HelicopterMultiTrainer(){

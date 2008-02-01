@@ -21,7 +21,7 @@ public class RealTimeStrategyMultiTrainer
 {	
 	public static void main(String[] args) {
 		double totalReturn = 0.0d;
-		int rtsStepLimit=60000;
+		int rtsStepLimit=37500000;
 		//Uncomment one of the two lines below depending if you want random order or sequential order
 		//int thisMDPNumber=i;
 

@@ -26,7 +26,7 @@ public class TetrisMultiTrainer extends AbstractMultiTrainer {
 
 	
 	//maximum number of steps per MDP
-	int tetrisStepLimit=60000;
+	int tetrisStepLimit=5000000;
 	int thisMDPNumber;
 	
 	public TetrisMultiTrainer(){

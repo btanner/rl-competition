@@ -24,7 +24,7 @@ public class MountaincarMultiTrainer extends AbstractMultiTrainer {
 	}
 	
 	//maximum number of steps per MDP
-	int mountaincarStepLimit=60000;
+	int mountaincarStepLimit=100000;
 	int thisMDPNumber;
 	
 	public MountaincarMultiTrainer(){
