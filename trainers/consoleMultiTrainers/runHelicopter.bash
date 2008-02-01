@@ -1,34 +1,16 @@
 #!/bin/bash
-
-
-#Variables
 basePath=../..
 systemPath=$basePath/system
-libPath=$systemPath/libraries
+#Source a script that sets all important functions and variables
+source $systemPath/rl-competition-includes.sh
 
-compLib=$libPath/RLVizLib.jar
-envShellLib=$libPath/EnvironmentShell.jar 
+#Utility functions from rl-competition-includes.sh
+startRLGlueInBackGround
+startEnvShellInBackGround
 
-glueExe=$systemPath/RL_glue
+java -Xmx128M -classpath $VIZ_CLASSPATH:./bin/ HelicopterMultiTrainer
 
-$glueExe &
-gluePID=$!
-echo "Starting up RL-glue - PID=$gluePID"
-
-java -DRLVIZ_LIB_PATH=$PWD/$libPath -Xmx128M -cp $compLib:$envShellLib rlglue.environment.EnvironmentLoader environmentShell.EnvironmentShell  &
-envShellPID=$!
-
-echo "Starting up dynamic environment loader - PID=$envShellPID"
-
-java -Xmx128M -cp $compLib:./bin/ HelicopterMultiTrainer
-
-echo "-- Console Trainer finished"
-
-echo "-- Waiting for the Environment to die..."
-wait $envShellPID
-echo "   + Environment terminated"
-echo "-- Waiting for the Glue to die..."
-wait $gluePID
-echo "   + Glue terminated"
-
+#Utility functions from rl-competition-includes.sh
+waitForEnvShellToDie
+waitForRLGlueToDie
 
