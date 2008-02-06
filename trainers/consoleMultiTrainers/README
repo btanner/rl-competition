@@ -1,0 +1,23 @@
+The multi trainers were designed to mimic the Proving app, but instead of using
+the proving mdp's, the multi trainers run through all of the different training
+mdp's. Each multi trainer (there is one for each environment/domain) runs the same
+number of steps on an mdp as the proving software does, however, this can be changed
+by modifying the source code (in a trivial way).
+
+Each environment has a run script to start it's multi trainer:
+runHelicopter.bash
+runMountaincar.bash
+runRealTimeStrategy.bash
+runTetris.bash
+
+**There is no multi trainer for Keepaway yet **
+
+Contained within the source code for these trainers is the code for running multiple
+mdp's from within a single trainer.
+
+To recompile the trainers:
+$> make clean
+$> make
+
+NOTE:
+You need to start your own agent!
