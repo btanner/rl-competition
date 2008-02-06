@@ -150,6 +150,14 @@ The source code for the GUI trainer is not provided.  This trainer is provided o
 ** Note 2: compiling and running a trainer for the RTS and Keepaway domains is different from the procedure described above please consult the README files in domains/realTimeStrategy/ and domains/keepAwaySoccer for more information. 
 *****
 
+Multi trainers have been added as of sp3. These Multi trainers provide sample code for how to run more than one mdp per trainer. They also allow testing of agents in much
+the same way as the proving app does. Multi trainers mimic the functionality of the proving app, but use the training mdp's instead of proving mdp's. By default the step
+limit per mdp is the same in the Multi trainers as it is for proving. There is one Multi trainer per environment with the exception of Keepaway, in which there is none.
+Multi Trainers can be found in:
+/trainers/consoleMultiTrainers
+
+For more information on the multi trainers, please read the README in the /trainers/consoleMultiTrainers directory
+
 ----------------------------------------------------
 7 :: RUNNING YOUR FIRST CONSOLE EXPERIMENT
 ----------------------------------------------------
