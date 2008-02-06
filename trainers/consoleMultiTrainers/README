@@ -1,8 +1,15 @@
-The multi trainers were designed to mimic the Proving app, but instead of using
-the proving mdp's, the multi trainers run through all of the different training
-mdp's. Each multi trainer (there is one for each environment/domain) runs the same
-number of steps on an mdp as the proving software does, however, this can be changed
-by modifying the source code (in a trivial way).
+The multi trainers were designed to mimic the Proving app (http://rl-competition.org/content/view/43/71/),
+but instead of using the proving mdp's, the multi trainers run through all of the different training
+mdp's. Each multi trainer (there is one for each environment/domain) runs the same number of steps on an
+mdp as the proving software does(http://rl-competition.org/content/view/45/73/), however, this can be 
+changed by modifying the source code.
+
+Example for modifying MountainCar:
+- Open MountaincarMultiTrainer.java (this file can be found in the src/ directory)
+- Modify the value for mountaincarStepLimit to be the desired number of steps per
+  mdp:
+	//maximum number of steps per MDP
+	int mountaincarStepLimit=100000;
 
 Each environment has a run script to start it's multi trainer:
 runHelicopter.bash
