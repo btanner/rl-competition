@@ -33,6 +33,8 @@ public class MountaincarMultiTrainer extends AbstractMultiTrainer {
 	}
 	
 	protected double runCurrentMDP(int mdpStepLimit){
+		System.out.print("Mdp " + thisMDPNumber + " Started :: ");
+		
 		RLGlue.RL_init();
 		int stepsRemaining = mdpStepLimit;
 		int totalEpisodes = 0;

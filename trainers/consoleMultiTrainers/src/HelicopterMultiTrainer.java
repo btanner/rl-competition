@@ -35,6 +35,7 @@ public class HelicopterMultiTrainer extends AbstractMultiTrainer {
 	}
 	
 	protected double runCurrentMDP(int mdpStepLimit){
+		System.out.print("Mdp " + thisMDPNumber + " Started :: ");
 		RLGlue.RL_init();
 		int stepsRemaining = mdpStepLimit;
 		int totalEpisodes = 0;

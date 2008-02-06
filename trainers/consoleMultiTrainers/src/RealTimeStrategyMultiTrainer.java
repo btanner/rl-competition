@@ -24,7 +24,7 @@ public class RealTimeStrategyMultiTrainer
 		int rtsStepLimit=37500000;
 		//Uncomment one of the two lines below depending if you want random order or sequential order
 		//int thisMDPNumber=i;
-
+		System.out.print("Mdp Started :: ");
 		RLGlue.RL_init();
 		int stepsRemaining = rtsStepLimit;
 		int totalEpisodes = 0;
