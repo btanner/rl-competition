@@ -12,4 +12,4 @@ OLJ:
 	javac $(SRC_PATH)/RTSAgent/Parameters.java -d $(BIN_PATH)
 
 clean:
-	-rm -rf $(BIN_PATH)/*.class
+	-rm -rf $(BIN_PATH)/*
