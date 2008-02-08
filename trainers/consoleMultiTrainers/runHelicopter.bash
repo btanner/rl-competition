@@ -8,7 +8,13 @@ source $systemPath/rl-competition-includes.sh
 startRLGlueInBackGround
 startEnvShellInBackGround
 
-java -Xmx128M -classpath $VIZ_CLASSPATH:./bin/ HelicopterMultiTrainer
+CLASSPATH=$VIZ_CLASSPATH:./bin/
+if [[ `uname` == CYGWIN* ]]
+then
+	CLASSPATH=`cygpath -wp $CLASSPATH`
+fi
+
+java -Xmx128M -classpath $CLASSPATH HelicopterMultiTrainer
 
 #Utility functions from rl-competition-includes.sh
 waitForEnvShellToDie

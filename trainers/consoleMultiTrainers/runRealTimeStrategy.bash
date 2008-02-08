@@ -10,7 +10,13 @@ source $systemPath/rl-competition-includes.sh
 startRTSInBackGround
 startRLGlueInBackGround
 
-java -DRLVIZ_LIB_PATH=$RLVIZ_LIB_PATH -Xmx128M -classpath $VIZ_CLASSPATH:./bin/ RealTimeStrategyMultiTrainer
+CLASSPATH=$VIZ_CLASSPATH:./bin/
+if [[ `uname` == CYGWIN* ]]
+then
+	CLASSPATH=`cygpath -wp $CLASSPATH`
+fi
+
+java -DRLVIZ_LIB_PATH=$RLVIZ_LIB_PATH -Xmx128M -classpath $CLASSPATH RealTimeStrategyMultiTrainer
 
 #Utility functions from rl-competition-includes.sh
 waitForRTSToDie
