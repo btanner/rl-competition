@@ -1,6 +1,5 @@
-
-#TODO
-BOOST_ROOT = ../../system/boost
+#This should be an absolute path
+BOOST_ROOT = /path/to/your/boost
 X11_PATH = /usr/X11R6
 
 export RCSSBASE = $(shell pwd)/rcss
