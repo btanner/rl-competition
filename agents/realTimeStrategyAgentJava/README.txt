@@ -10,6 +10,11 @@ To recompile just the Real Time Strategy java agent:
 
 in realTimeStrategyAgentJava directory.
 
-run.bash:
+Execution begins at main() in the src/RTSAgent/RTSAgent.java. This files
+contains action handlers for each unit type; this manual behavior should be
+replaced by a method which selects actions based on learning from previous
+experience.  
+
+run.bash
 - Starts the realTimeStrategyAgentJava process
 

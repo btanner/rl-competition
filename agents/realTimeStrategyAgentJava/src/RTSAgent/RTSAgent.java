@@ -14,6 +14,7 @@
 * You should have received a copy of the GNU General Public License
 * along with this program; if not, write to the Free Software
 * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA. */
+
 package RTSAgent;
 import rlglue.agent.Agent;
 import rlglue.types.Action;
@@ -22,6 +23,9 @@ import java.util.ArrayList;
 
 import java.util.Random;
 
+/* 
+ * This class is the driver class, ie. the place where all the action starts. 
+ */ 
 public class RTSAgent implements Agent
 {
   boolean freeze = false;
@@ -116,6 +120,7 @@ public class RTSAgent implements Agent
     // All state information is in the 'state' and 'parms' fields
     //
     // The code below should be replaced by clever RL techniques!
+    // At the moment, the a manual policy is used for each unit type.
     
     ArrayList<Integer> actionList = new ArrayList<Integer>();
 
@@ -130,12 +135,12 @@ public class RTSAgent implements Agent
     if (time == done_base_time)
       done_base_time = 0;
     
-    
+    // action selection is delegated to the correct function depending on 
+    // unit type
+    //
     for (GameObj obj : state.objects)
     {
       int id = obj.id;
-      
-      //System.out.println("Found object id="+id+" owner="+obj.owner + " type="+obj.getType());
       
       if (obj.owner == playerNum && obj.getType().equals("worker"))
       {
@@ -157,12 +162,10 @@ public class RTSAgent implements Agent
       {
         mp_x = obj.x;
         mp_y = obj.y;
-        //System.out.println("mp capacity = " + ((MineralPatch)obj).capacity); 
       }
     }
 
     Action a = Helpers.convertActionList(actionList);
-    //System.out.println("action int array is " + Helpers.intArrayToString(a.intArray));
 
     return a;
   }

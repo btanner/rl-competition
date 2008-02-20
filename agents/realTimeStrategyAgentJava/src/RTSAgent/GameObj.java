@@ -14,7 +14,18 @@
 * You should have received a copy of the GNU General Public License
 * along with this program; if not, write to the Free Software
 * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA. */
+
 package RTSAgent;
+
+/* 
+ * This file contains all the classes that represent the RTS domain's 
+ * objects (mineral patches and units such as marines, workers, bases)
+ */ 
+
+/* 
+ * The class represents a game object. 
+ * All game objects are subclasses of this base class. 
+ */
 public abstract class GameObj
 {
   int id;
