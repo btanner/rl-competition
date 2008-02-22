@@ -49,7 +49,7 @@ save_client_draw_log=0            # should I save client logged shape info to a 
 client_log_dir=$keepaway_dir/logs # top-level client log directory
 client_dir=$keepaway_dir/player   # directory containing player binary
 client=keepaway_player            # name of player binary
-stop_after=-1                     # stop after num episodes
+stop_after=200                     # stop after num episodes
 start_learning_after=-1           # start learning after num episodes
 
 ############################################################
