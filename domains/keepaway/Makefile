@@ -1,5 +1,5 @@
 #This should be an absolute path
-BOOST_ROOT = /Users/mradkie/competition/rl-competition/system/boost
+BOOST_ROOT = $(shell pwd)/../../system/boost
 X11_PATH = /usr/X11R6
 
 export RCSSBASE = $(shell pwd)/rcss
