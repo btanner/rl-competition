@@ -1,6 +1,6 @@
 #This should be an absolute path
-BOOST_ROOT = $(shell pwd)/../../system/boost
-X11_PATH = /usr/X11R6
+export BOOST_ROOT = $(shell pwd)/../../system/boost
+export X11_PATH = /usr/X11R6
 
 export RCSSBASE = $(shell pwd)/rcss
 
@@ -11,8 +11,7 @@ export DYLD_FALLBACK_LIBRARY_PATH=$(BOOST_ROOT)/lib:$(RCSSBASE)/lib:$(RCSSBASE)/
 
 all: rcssbase rcssserver rcssmonitor tools player
 
-rcssbase:	
-	@echo $(RCSSBASE)
+rcssbase:
 	cd rcss-src/rcssbase-11.1.0 && ./configure --prefix=$(RCSSBASE) --with-boost=$(BOOST_ROOT)
 	cd rcss-src/rcssbase-11.1.0 && make
 	cd rcss-src/rcssbase-11.1.0 && make install
