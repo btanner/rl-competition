@@ -1,8 +1,14 @@
 #This should be an absolute path
-export BOOST_ROOT = $(shell pwd)/../../system/boost
-export X11_PATH = /usr/X11R6
+AUTO_BOOST_ROOT_RELATIVE = $(shell pwd)/../../system/boost
+BOOST_ROOT=$(shell cd $(AUTO_BOOST_ROOT_RELATIVE);pwd)
+
+#Comment the above lines if you did NOT install boost with our automated script and uncomment the next line
+#BOOST_ROOT=/home/username/
+
+X11_PATH = /usr/X11R6
 
 export RCSSBASE = $(shell pwd)/rcss
+
 
 export CPPFLAGS = -I$(X11_PATH)/include
 export PATH +=:$(RCSSBASE)/bin
@@ -11,7 +17,7 @@ export DYLD_FALLBACK_LIBRARY_PATH=$(BOOST_ROOT)/lib:$(RCSSBASE)/lib:$(RCSSBASE)/
 
 all: rcssbase rcssserver rcssmonitor tools player
 
-rcssbase:
+rcssbase:	
 	cd rcss-src/rcssbase-11.1.0 && ./configure --prefix=$(RCSSBASE) --with-boost=$(BOOST_ROOT)
 	cd rcss-src/rcssbase-11.1.0 && make
 	cd rcss-src/rcssbase-11.1.0 && make install
