@@ -20,10 +20,19 @@ if [ "$(uname)" == "Darwin" ]; then
 fi
 }
 
+setCygwinOnVarLocalMainPath(){
+if [[ `uname` == CYGWIN* ]]
+then
+    localMainPath=`cygpath -wp $localMainPath`
+fi
+}
+
+
 setCygwinPaths ()
 {
 if [[ `uname` == CYGWIN* ]]
 then
+    localMainPath=`cygpath -wp $localMainPath`
 	glueExe="$glueExe.exe"
 	rtsExe="$rtsExe.exe"
 	RLVIZ_LIB_PATH=`cygpath -wp $RLVIZ_LIB_PATH`
