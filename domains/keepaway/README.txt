@@ -104,4 +104,6 @@ Then, start the Soccer Server and the Keepaway players:
 $> cd rl-competition/domains/keepaway
 $> ./keepaway_RLGlue.sh
 
+If keepaway_RLGlue.sh does not work for you (we have had problems reported on Ubuntu), use the keepaway_RLGlue.ubuntu.sh script instead.
+
 If everything is working correctly, one keeper will be controlled by the random RL-Glue agent, and two keepers will use the hand-coded keeper policy.
