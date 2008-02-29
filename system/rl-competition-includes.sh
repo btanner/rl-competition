@@ -12,6 +12,7 @@ pKillScript=$systemPath/bin/pkill
 RLVIZ_LIB_PATH=$PWD/$libPath
 ENV_CLASSPATH=$compLib:$envShellLib
 VIZ_CLASSPATH=$compLib:$guiLib:$vizAppLib
+BIN_CLASSPATH=$VIZ_CLASSPATH:./bin/
 
 setMacAboutName ()
 { # This is about as simple as functions get.
@@ -20,19 +21,13 @@ if [ "$(uname)" == "Darwin" ]; then
 fi
 }
 
-setCygwinOnVarLocalMainPath(){
-if [[ `uname` == CYGWIN* ]]
-then
-    localMainPath=`cygpath -wp $localMainPath`
-fi
-}
 
 
 setCygwinPaths ()
 {
 if [[ `uname` == CYGWIN* ]]
 then
-    localMainPath=`cygpath -wp $localMainPath`
+    BIN_CLASSPATH=`cygpath -wp $BIN_CLASSPATH`
 	glueExe="$glueExe.exe"
 	rtsExe="$rtsExe.exe"
 	RLVIZ_LIB_PATH=`cygpath -wp $RLVIZ_LIB_PATH`
