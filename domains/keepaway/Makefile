@@ -2,7 +2,11 @@
 AUTO_BOOST_ROOT_RELATIVE = $(shell pwd)/../../system/boost
 BOOST_ROOT=$(shell cd $(AUTO_BOOST_ROOT_RELATIVE);pwd)
 
-#Comment the above lines if you did NOT install boost with our automated script and uncomment the next line
+#if this build fails, try commenting BOOST_ROOT or setting it to nothing, to see if your system can
+#auto detect the boost location
+
+#Comment the above lines if you did NOT install boost with our automated script and your system could
+#NOT find boost on its own.Then uncomment the next line and set it to the absolute path to your BOOST directory
 #BOOST_ROOT=/home/username/
 
 X11_PATH = /usr/X11R6
@@ -38,3 +42,11 @@ tools:
 
 player:
 	cd keepaway-0.6/player && make
+
+clean:
+	cd rcss-src/rcssbase-11.1.0 && make clean
+	cd rcss-src/rcssserver-11.1.2 && make clean
+	cd rcss-src/rcssmonitor-11.1.1 && make clean
+	cd keepaway-0.6/tools && make clean
+	cd keepaway-0.6/player && make clean
+
