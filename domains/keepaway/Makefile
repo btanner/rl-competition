@@ -1,13 +1,16 @@
-#This should be an absolute path
+
+#If Boost was installed using our installer in rl-competition/domains/support, the following lines should work
 AUTO_BOOST_ROOT_RELATIVE = $(shell pwd)/../../system/boost
 BOOST_ROOT=$(shell cd $(AUTO_BOOST_ROOT_RELATIVE);pwd)
 
-#if this build fails, try commenting BOOST_ROOT or setting it to nothing, to see if your system can
-#auto detect the boost location
+#If that doesn't work, and you think boost is installed already, comment out the BOOST_ROOT line and then do make clean, make to see 
+#if the installers can find your boost automatically.
 
-#Comment the above lines if you did NOT install boost with our automated script and your system could
-#NOT find boost on its own.Then uncomment the next line and set it to the absolute path to your BOOST directory
-#BOOST_ROOT=/home/username/
+
+#If you did NOT install boost with our automated script and your system could
+#NOT find boost on its own, comment the lines above and uncomment the following line, 
+#Set it to the absolute path to your BOOST directory
+BOOST_ROOT=/Users/btanner
 
 X11_PATH = /usr/X11R6
 
