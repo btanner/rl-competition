@@ -4,6 +4,7 @@ systemPath=$basePath/system
 #Source a script that sets all important functions and variables
 source $systemPath/rl-competition-includes.sh
 localMainPath=$VIZ_CLASSPATH:./bin/
+setCygwinPaths
 
 #Utility functions from rl-competition-includes.sh
 startRLGlueInBackGround
