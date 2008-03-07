@@ -25,6 +25,7 @@ LearningAgent::LearningAgent( int numFeatures, int numActions,
   /* Contruct learner here */
   /* For example: */
   this->iStopAfter = iStopAfter;
+  this->startEpisodeCalled = false;
   m_learning = learning;
   current_observation.numInts =0;
   current_observation.numDoubles = 13;  //Keepaway has 13 state variables
@@ -80,6 +81,7 @@ int LearningAgent::startEpisode( double state[] )
   }
   m_lastAction = agent_start(current_observation).intArray[0];
   memcpy( m_lastState, state, getNumFeatures() * sizeof( double ) );
+startEpisodeCalled=true;
   return m_lastAction;
 }
 
@@ -100,10 +102,11 @@ int LearningAgent::step( double reward, double state[] )
 
 void LearningAgent::endEpisode( double reward )
 {
-  if ( m_learning ){
+  if ( m_learning && startEpisodeCalled){
     //ro.r = reward;
     agent_end(reward);
-    if (++iNumEpisodes >= iStopAfter)
+    if ((++iNumEpisodes >= iStopAfter) && (iStopAfter != -1))
       exit(1);
   }
+startEpisodeCalled=false;
 }

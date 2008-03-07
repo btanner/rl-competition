@@ -19,6 +19,7 @@ class LearningAgent:public SMDPAgent
   Reward_observation ro;
   int iStopAfter;
   int iNumEpisodes;
+  bool startEpisodeCalled;
 
   AgentServer agentServer;
 
