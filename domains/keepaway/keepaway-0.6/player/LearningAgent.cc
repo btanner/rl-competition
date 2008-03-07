@@ -24,8 +24,8 @@ LearningAgent::LearningAgent( int numFeatures, int numActions,
 {
   /* Contruct learner here */
   /* For example: */
+  this->iStopAfter = iStopAfter;
   m_learning = learning;
-
   current_observation.numInts =0;
   current_observation.numDoubles = 13;  //Keepaway has 13 state variables
   current_observation.intArray =(int*)malloc(sizeof(int)*current_observation.numInts);

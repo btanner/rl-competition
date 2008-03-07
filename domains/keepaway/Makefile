@@ -10,7 +10,7 @@ BOOST_ROOT=$(shell cd $(AUTO_BOOST_ROOT_RELATIVE);pwd)
 #If you did NOT install boost with our automated script and your system could
 #NOT find boost on its own, comment the lines above and uncomment the following line, 
 #Set it to the absolute path to your BOOST directory
-BOOST_ROOT=/Users/btanner
+#BOOST_ROOT=/Users/btanner
 
 X11_PATH = /usr/X11R6
 
