@@ -17,6 +17,8 @@ class LearningAgent:public SMDPAgent
   double m_lastState[MAX_STATE_VARS];
   Observation current_observation;
   Reward_observation ro;
+  int iStopAfter;
+  int iNumEpisodes;
 
   AgentServer agentServer;
 
@@ -30,7 +32,8 @@ class LearningAgent:public SMDPAgent
 		 int   numActions,
 		 bool  learning,
 		 char *loadWeightsFile,
-		 char *saveWeightsFile );
+		 char *saveWeightsFile,
+		 int iStopAfter);
 
   int  startEpisode( double state[] );
   int  step( double reward, double state[] );

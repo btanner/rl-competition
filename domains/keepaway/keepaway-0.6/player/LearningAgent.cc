@@ -18,7 +18,8 @@
 LearningAgent::LearningAgent( int numFeatures, int numActions,
 			      bool learning,
 			      char *loadWeightsFile,
-			      char *saveWeightsFile ):
+			      char *saveWeightsFile,
+			      int iStopAfter):
   SMDPAgent( numFeatures, numActions )
 {
   /* Contruct learner here */
@@ -62,6 +63,7 @@ LearningAgent::LearningAgent( int numFeatures, int numActions,
   //initialize the agent
   Task_specification theTaskSpec = env_task_spec;
   agent_init(theTaskSpec);
+  iNumEpisodes = 0;
 
   printf("RL-Glue agent initialized\n");
 }
@@ -101,5 +103,7 @@ void LearningAgent::endEpisode( double reward )
   if ( m_learning ){
     //ro.r = reward;
     agent_end(reward);
+    if (++iNumEpisodes >= iStopAfter)
+      exit(1);
   }
 }

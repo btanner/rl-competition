@@ -281,7 +281,8 @@ int main( int argc, char * argv[] )
   if ( strlen( strPolicy ) > 0 && strPolicy[0] == 'l' ) {
     // (l)earned
     sa = new LearningAgent( numFeatures, numActions,
-			    bLearn, loadWeightsFile, saveWeightsFile ); 
+			    bLearn, loadWeightsFile, saveWeightsFile,
+			    iStopAfter); 
   }
   else {
     // (ha)nd (ho)ld (r)andom

@@ -153,7 +153,9 @@ fi
 
 echo Starting Server....
 #echo rcssserver $server_opts
+echo rcssserver $server_opts
 rcssserver $server_opts &
+
 server_pid=$!
 
 sleep 2
