@@ -21,6 +21,12 @@ class LearningAgent:public SMDPAgent
   int iNumEpisodes;
   bool startEpisodeCalled;
 
+std::string pathToLogFile;
+std::ofstream rlCompLogFile;
+double cumulativeReward;
+int numSteps;
+
+
   AgentServer agentServer;
 
   void loadWeights ( char  *filename );

@@ -7,6 +7,9 @@
 // *met 8/07
 /////////////////////////////
 
+#include <string>
+#include <fstream>
+#include <iostream>
 #include <string.h>  // for memcpy
 #include <stdlib.h>  // for rand
 #include "LearningAgent.h" //*met 8/07
@@ -22,6 +25,10 @@ LearningAgent::LearningAgent( int numFeatures, int numActions,
 			      int iStopAfter):
   SMDPAgent( numFeatures, numActions )
 {
+	pathToLogFile="../../../../system/proving/keepawaylog.txt";
+	//open the file to delete all previous contents
+	std::ofstream fout(pathToLogFile.c_str());
+	if(fout.is_open())fout.close();
   /* Contruct learner here */
   /* For example: */
   this->iStopAfter = iStopAfter;
@@ -81,7 +88,11 @@ int LearningAgent::startEpisode( double state[] )
   }
   m_lastAction = agent_start(current_observation).intArray[0];
   memcpy( m_lastState, state, getNumFeatures() * sizeof( double ) );
-startEpisodeCalled=true;
+
+  startEpisodeCalled=true;
+  cumulativeReward=0.0;
+  numSteps=0;
+  
   return m_lastAction;
 }
 
@@ -90,6 +101,8 @@ startEpisodeCalled=true;
 */
 int LearningAgent::step( double reward, double state[] )
 {
+	cumulativeReward += reward;
+	numSteps++;
   //ro.r = reward;
   for (int i=0; i<(int)current_observation.numDoubles; i++){
     current_observation.doubleArray[i] = state[i];
@@ -104,9 +117,18 @@ void LearningAgent::endEpisode( double reward )
 {
   if ( m_learning && startEpisodeCalled){
     //ro.r = reward;
+	cumulativeReward += reward;
     agent_end(reward);
-    if ((++iNumEpisodes >= iStopAfter) && (iStopAfter != -1))
+    if ((++iNumEpisodes >= iStopAfter) && (iStopAfter != -1)){
       exit(1);
+  	}
+	std::ofstream fout(pathToLogFile.c_str(), std::ios::app);
+	if(!fout){
+		std::cerr << "cannot open log file!! \n";
+	}else{
+		fout << cumulativeReward << "\t" << numSteps << "\n";
+	}
+	fout.close();
   }
-startEpisodeCalled=false;
+  startEpisodeCalled=false;
 }
