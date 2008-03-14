@@ -29,6 +29,10 @@ LearningAgent::LearningAgent( int numFeatures, int numActions,
 	//open the file to delete all previous contents
 	std::ofstream fout(pathToLogFile.c_str());
 	if(fout.is_open())fout.close();
+	//initialize variables for logging
+	cumulativeReward = 0.0;
+	numSteps = 0;
+	startEpisodeCalled = false;
   /* Contruct learner here */
   /* For example: */
   this->iStopAfter = iStopAfter;
