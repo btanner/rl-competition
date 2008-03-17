@@ -1,12 +1,16 @@
-#!/bin/sh
+#!/bin/bash
 
 # Keepaway startup script
 # 
 # No commandline parameters.  All options are set in this file.
 #
 
-#  $0 - stop after $0 episodes
-#  $1 - size of field is $1 x $1
+#  $1 - stop after $1 episodes
+#  $2 - size of field is $2 x $2
+#  $3 - player speed.
+#  $4 - quantize step: 0.$4 and 0.0$4
+#  $5 - log file name: $5
+
 
 export BOOST_ROOT=../system/boost
 
@@ -15,6 +19,13 @@ export RCSSBASE=../domains/keepaway/rcss
 export PATH=$PATH:$RCSSBASE/bin
 export LD_LIBRARY_PATH=$BOOST_ROOT/lib:$RCSSBASE/lib:$RCSSBASE/lib/rcssserver/modules
 export DYLD_FALLBACK_LIBRARY_PATH=$BOOST_ROOT/lib:$RCSSBASE/lib:$RCSSBASE/lib/rcssserver/modules
+
+
+echo $1
+echo $2
+echo $3
+echo $4
+echo $5
 
 # Top-level keepaway directory
 keepaway_dir=../domains/keepaway/keepaway-0.6
@@ -106,8 +117,8 @@ date=`date +%Y%m%d%H%M`
 machine=`hostname`
 
 proc_name=$date-$machine
-if [ -n "$3" ]; then
-	proc_name=$3
+if [ -n "$5" ]; then
+	proc_name=$5
 fi
 
 echo The log file will be $proc_name
@@ -125,12 +136,18 @@ rcg_log_opts="$s::game_logging=$save_rcg_log $s::game_log_dir=$log_dir $s::game_
 rcl_log_opts="$s::text_logging=$save_rcl_log $s::text_log_dir=$log_dir $s::text_log_compression=0 $s::text_log_fixed=1 $s::text_log_fixed_name=$proc_name"
 log_opts="$kwy_log_opts $rcg_log_opts $rcl_log_opts"
 
-if (( $unrestricted_vision )); then
-#  vision_opts="$s::visible_angle=360 $s::quantize_step=.00001 $s::quantize_step_l=.00001"
-  vision_opts="$s::visible_angle=360"
+vision_opts="$s::visible_angle=360"
+if [ -n "$4" ]; then
+  vision_opts="$s::visible_angle=360 $s::quantize_step=0.$4 $s::quantize_step_l=.0$4"
 fi
 
-server_opts="$s::port=$port $s::coach_port=$coach_port $s::olcoach_port=$olcoach_port $s::half_time=-1 $s::forbid_kick_off_offside=0 $s::use_offside=0 $s::stamina_inc_max=3500 $s::synch_mode=$synch_mode $s::synch_offset=80 $keepaway_opts $log_opts $vision_opts $s::coach=$use_trainer"
+player_speed=1.2
+if [ -n "$3" ]; then
+	player_speed=$3
+fi
+
+server_opts="$s::port=$port $s::coach_port=$coach_port $s::olcoach_port=$olcoach_port $s::half_time=-1 $s::forbid_kick_off_offside=0 $s::use_offside=0 $s::stamina_inc_max=3500 $s::synch_mode=$synch_mode $s::synch_offset=80 $keepaway_opts $log_opts $vision_opts $s::coach=$use_trainer $s::slow_down_factor=1 $s::player_speed_max=$player_speed"
+	
 
 keeper_opts_hand="-t keepers -e 0 -q hand"
 keeper_opts_learn="-t keepers -e 1 -q learned"
