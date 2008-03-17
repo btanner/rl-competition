@@ -85,7 +85,6 @@ LearningAgent::LearningAgent( int numFeatures, int numActions,
 */
 int LearningAgent::startEpisode( double state[] )
 {
-  printf("startEpisode() in LearningAgent.cc\n");
   /* Choose first action */
   for (int i=0; i < (int)current_observation.numDoubles; i++){
     current_observation.doubleArray[i] = state[i];
