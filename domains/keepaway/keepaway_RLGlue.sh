@@ -2,20 +2,19 @@
 
 # Keepaway startup script
 # 
-#  $1 - stop after $1 episodes
-#  $2 - size of field is $2 x $2
-#  $3 - log file name. $3.kwy
+# No commandline parameters.  All options are set in this file.
+#
 
-export BOOST_ROOT=../system/boost
+export BOOST_ROOT=../../system/boost
 
-export RCSSBASE=../domains/keepaway/rcss
+export RCSSBASE=./rcss
 
 export PATH=$PATH:$RCSSBASE/bin
 export LD_LIBRARY_PATH=$BOOST_ROOT/lib:$RCSSBASE/lib:$RCSSBASE/lib/rcssserver/modules
 export DYLD_FALLBACK_LIBRARY_PATH=$BOOST_ROOT/lib:$RCSSBASE/lib:$RCSSBASE/lib/rcssserver/modules
 
 # Top-level keepaway directory
-keepaway_dir=../domains/keepaway/keepaway-0.6
+keepaway_dir=`pwd`/keepaway-0.6
 # Top-level rcssjava directory ** SET THIS OPTION **
 rcssjava_dir=$keepaway_dir/rcssjava-0.1
 
@@ -50,24 +49,14 @@ save_client_draw_log=0            # should I save client logged shape info to a 
 client_log_dir=$keepaway_dir/logs # top-level client log directory
 client_dir=$keepaway_dir/player   # directory containing player binary
 client=keepaway_player            # name of player binary
-#stop_after=$1                     # stop after num episodes
-stop_after=-1
-
-if [ -n "$1" ]; then
-	stop_after=$1                     # stop after num episodes
-fi
-
+stop_after=-1                     # stop after num episodes
 start_learning_after=-1           # start learning after num episodes
 
 ############################################################
 # Server options                                           #
 ############################################################
-ka_width=20
-#ka_width=$2                      # Y-axis size of playing region
-if [ -n "$2" ]; then
-	ka_width=$2
-fi
-#${ka_width:-20}
+
+ka_width=20                      # Y-axis size of playing region
 ka_length=$ka_width              # X-axis size of playing region
 
 unrestricted_vision=1            # should I use 360-degree vision instead of 90?
@@ -102,11 +91,6 @@ date=`date +%Y%m%d%H%M`
 machine=`hostname`
 
 proc_name=$date-$machine
-if [ -n "$3" ]; then
-	proc_name=$3
-fi
-
-echo The log file will be $proc_name
 save_dir=$weight_dir/$proc_name
 log_save_dir=$client_log_dir/$proc_name
 
@@ -238,11 +222,9 @@ if (( $launch_monitor )); then
   monitor_opts="rcssmonitor -m_keepaway 1 -m_keepaway_length $ka_length -m_keepaway_width $ka_width -m_port $port"
   echo Starting Monitor...
   rcssmonitor $monitor_opts &
-  monitor_pid=$!
 fi
 
 if (( $use_trainer )); then
   wait $trainer_pid
   kill -INT $server_pid
-  kill -9 $monitor_pid
 fi
