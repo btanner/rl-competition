@@ -8,8 +8,6 @@ startRLGlueInBackGround
 startEnvShellInBackGround
 startGuiTrainer
 
+waitForAgentToDie
 waitForEnvShellToDie
 waitForRLGlueToDie
-
-
-
