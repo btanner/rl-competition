@@ -89,7 +89,7 @@ int main(int argc, char ** argv)
   
   MiniGameState s;
   MiniGameParameters gp;
-  if (parmsfile != NULL);
+  if (parmsfile != NULL)
     load_parms(parmsfile, &gp);
   
   if (trace != NULL)
