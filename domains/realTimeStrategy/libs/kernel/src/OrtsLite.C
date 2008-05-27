@@ -1,9 +1,12 @@
-// $Id: OrtsLite.C 5582 2007-08-05 03:16:58Z mburo $
+// $Id: OrtsLite.C 6884 2008-04-19 21:12:07Z lanctot $
 
 // ortslite test
 
 // (c) Michael Buro, Marc Lanctot
 // licensed under GPLv3
+
+// This file is not used. Please see apps/ol/src
+
 
 #include "OrtsLite.H"
 //#include "Player.H"

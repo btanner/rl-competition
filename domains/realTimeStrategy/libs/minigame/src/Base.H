@@ -30,6 +30,12 @@ public:
     attack_value = gp.base_atk_value;    
   }
   
+  virtual int get_atkvalue() { return attack_value; }    
+  virtual int get_atkrange() { return attack_range; }    
+  
+  virtual int get_maxhp() const 
+  { return state->gp.base_hp; }
+  
   void execute();
   const std::string &get_type() const;
 };

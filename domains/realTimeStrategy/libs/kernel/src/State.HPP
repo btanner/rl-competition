@@ -1,4 +1,4 @@
-// $Id: State.HPP 5881 2007-09-18 22:48:55Z lanctot $
+// $Id: State.HPP 6873 2008-04-14 18:02:20Z lanctot $
 
 // State.H implementation
 

@@ -28,8 +28,12 @@ public:
     minerals_left = state->gp.mineral_patch_capacity;
   }
 
+  virtual int get_maxhp() const 
+  { return state->gp.mineral_patch_hp; }  
+  
   void execute();
   const std::string &get_type() const;
+  
 };
 
 #endif

@@ -13,7 +13,7 @@ void logstr(const std::string & str);
 void copy_parms(ParameterHolder * phPtr, MiniGameParameters * mgpPtr);
 Player* get_opponent(MiniGameParameters * mgpPtr);
 
-void printout_phstr(char * parmsfile);
+void printout_phstr(const char * parmsfile);
 
 
 

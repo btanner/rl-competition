@@ -298,13 +298,15 @@ public:
     }
   }
 
+  MiniGameParameters & get_parms() { return gp; }
+  
   bool finished() const;
 
   int score(int player) const;
   
   void update_score(GameObjBase* obj);    
 
-  void object_setup();
+  virtual void object_setup();
   
   void setMPstr(const std::string& mpstr);
   
@@ -318,9 +320,11 @@ public:
   
   int check_win();
   
+  void get_marines(int player, std::vector<GameObj<MiniGameState>*> & marines);
+  
   std::string to_string();
   void from_string(const std::string & statestr); 
-  
+    
   friend class Base;
   friend class MineralPatch;
   friend class Worker;

@@ -1,12 +1,14 @@
 #ifndef ORTSLITE_H
 #define ORTSLITE_H
 
-#include "MiniGameState.H"
+//#include "MiniGameState.H"
+
+// This file is not used. Please see apps/ol/src
 
 class OrtsLite
 {
 private:
-  MiniGameState state; 
+  //MiniGameState state; 
   //  Player* players[2]; 
   int id_count;
 

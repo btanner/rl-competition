@@ -13,7 +13,10 @@
 
 using namespace std;
 
+static bool debug = false; 
+
 TestPlayer::TestPlayer(int num)
+  : DefaultPlayer(num)
 {
   statePtr = 0; 
   parmsPtr = 0;
@@ -26,17 +29,17 @@ TestPlayer::TestPlayer(int num)
   have_base = false; 
   base_y = base_x = 0; 
   mp_x = mp_y = 0;
+  minerals = 0;
 }
 
 TestPlayer::~TestPlayer()
 {
-  if (statePtr != 0)
-     delete statePtr;  
 }
 
 string TestPlayer::receive_actions(string view)
 {
-  build_state(view); 
+  if (!fullview)
+    build_state(view); 
   
   time++;
   
@@ -50,15 +53,17 @@ string TestPlayer::receive_actions(string view)
   
   if (time == done_base_time)
     done_base_time = 0;
+  
+  minerals = statePtr->player_infos[playerNum].pd.minerals; 
     
   // fill the vector will strings of actions
   // eg. actions: 
   //   [objId] move [x] [y] [speed] 
   
   vector<string> actions;
-  
-  cout << "TP" << playerNum << ": view is " << view << endl;
-  cout << "TP" << playerNum << ": Iterating through objects" << endl; 
+ 
+  DPR << "TP" << playerNum << ": view is " << view << endl;
+  DPR << "TP" << playerNum << ": Iterating through objects" << endl; 
   
   int numObjs = 0;
   
@@ -121,12 +126,12 @@ string TestPlayer::receive_actions(string view)
    
     
   }
-  
-  cout << "numObjs = " << numObjs << endl;
+ 
+  DPR << "numObjs = " << numObjs << endl;
   
   string actionstr = join(actions, "#");
   
-  cout << "actionstr = " << actionstr << endl; 
+  DPR << "actionstr = " << actionstr << endl; 
   
   return actionstr;
 }
@@ -164,14 +169,14 @@ string TestPlayer::chooseAction(int objId, Worker* workerPtr, MiniGameState& sta
           return compose_action(objId, "stop");    
         else 
         {
-          cout << "Worker Mining, minerals = " << workerPtr->carried_minerals << endl;
+          DPR << "Worker Mining, minerals = " << workerPtr->carried_minerals << endl;
           return ""; // automatically mine until full
         }
       }
       else
       {
         // when full, move to base
-        cout << "Worker full, minerals = " << workerPtr->carried_minerals << endl;
+        DPR << "Worker full, minerals = " << workerPtr->carried_minerals << endl;
         
         ostringstream oss; 
         oss << objId << " move " << base_x << " " << base_y << " " << workerPtr->max_speed;
@@ -182,7 +187,7 @@ string TestPlayer::chooseAction(int objId, Worker* workerPtr, MiniGameState& sta
     // when full, move to base
     if (workerPtr->carried_minerals >= parmsPtr->worker_mineral_capacity)
     {
-      cout << "Worker full, minerals = " << workerPtr->carried_minerals << endl;
+      DPR << "Worker full, minerals = " << workerPtr->carried_minerals << endl;
       
       ostringstream oss; 
       oss << objId << " move " << base_x << " " << base_y << " " << workerPtr->max_speed;
@@ -217,16 +222,20 @@ string TestPlayer::chooseAction(int objId, Base* basePtr, MiniGameState& state)
 
   if (roll < 0.5)
     return "";
-  else if (roll < 0.75 && done_worker_time <= 0)
+  else if (roll < 0.75 && done_worker_time <= 0 && minerals >= parmsPtr->worker_cost)
   {
+    // build a worker
     done_worker_time = time + parmsPtr->worker_training_time;
     return compose_action(objId, "train worker");
   }
-  else if (roll < 1 && done_marine_time <= 0)
+  else if (roll < 1 && done_marine_time <= 0 && minerals >= parmsPtr->marine_cost)
   {
+    // build a marine
     done_marine_time = time + parmsPtr->marine_training_time; 
     return compose_action(objId, "train marine"); 
   }
+  else 
+    return "";
   
   return "";
 }

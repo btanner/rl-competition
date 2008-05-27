@@ -95,40 +95,53 @@ template <class T, int N1, int N2, int N3, int N4> class array4 :
 #define FORALL(CONT,i)  \
   for (typeof((CONT).begin()) i = (CONT).begin(), _ = (CONT).end(); i != _; ++i) 
 
-#define errstr std::cerr
-#define remstr std::cout
+// CAUTION: using a lowercase for #define causes problems when using 
+// other libraries.. 
+#define ERRSTR std::cerr
+#define REMSTR std::cout
 #define ABORT  throw "ABORT"
 
 #if defined(__GNUC__)
 
 #define ERR(s) {\
-    errstr << std::endl << __FILE__ << " " << __FUNCTION__ << "() (line " << __LINE__ << "): " \
+    ERRSTR << std::endl << __FILE__ << " " << __FUNCTION__ << "() (line " << __LINE__ << "): " \
 	   << s << std::endl; ABORT;					\
 }
 
 #define ERR2(s1, s2) {\
-    errstr << std::endl << __FILE__ << " " << __FUNCTION__ << "() (line " << __LINE__ << "): " \
+    ERRSTR << std::endl << __FILE__ << " " << __FUNCTION__ << "() (line " << __LINE__ << "): " \
 	   << s1 << " " << s2 << std::endl; ABORT;			\
 }
 
 #else
 
 #define ERR(s) {\
-  errstr << endl << __FILE__  << " (line " << __LINE__ << "): "\
-  << s << endl; ABORT;\
+  ERRSTR << endl << __FILE__  << " (line " << __LINE__ << "): "\
+         << s << endl; ABORT;\
 }
 
 #define ERR2(s1, s2) {\
-  errstr << endl << __FILE__  << " (line " << __LINE__ << "): "\
-  << s1 << " " << s2 << endl; ABORT;\
+  ERRSTR << endl << __FILE__  << " (line " << __LINE__ << "): "\
+         << s1 << " " << s2 << endl; ABORT;\
 }
 #endif
 
-#define REM(x) remstr << "REMARK: " << x << std::endl;
-#define REM2(x,y) remstr << "REMARK: " << (x) << " " << (y) << std::endl;
+#define REM(x) REMSTR << "REMARK: " << x << std::endl;
+#define REM2(x,y) REMSTR << "REMARK: " << (x) << " " << (y) << std::endl;
+#define REM3(x,y,z) REMSTR << "REMARK: " << (x) << " " << (y) << " " << (z) << std::endl;
   
 // bool debug is defined as static, per file for easy shutting on/off dbg msgs
-#define DPR if (debug) std::cout
+#define DPR                if (debug) std::cout
+#define DLPR(l)            if ((l) <= debug_level) std::cout
+
+#define SQR(x)             ((x)*(x))
+#define ABS(x)             ((x) >= 0 ? (x) : (-1*(x)))
+#define DELETE(x)          if ((x) != NULL) { delete (x); (x) = NULL; }
+#define DELETEARR(x)       if ((x) != NULL) { delete [] (x); (x) = NULL; }
+#define PDIST(p1,p2)       sqrt(SQR((p1).first-(p2).first) + SQR((p1).second-(p2).second))
+#define DIST(x1,x2,y1,y2)  sqrt(SQR((x1)-(y1)) + SQR((x2)-(y2)))
+#define MIN(x,y)           ((x) < (y) ? (x) : (y))
+#define MAX(x,y)           ((x) > (y) ? (x) : (y))
 
 struct StringHash 
 {
@@ -178,11 +191,14 @@ template<class T> T sign(T &x) {
 }
 
 int to_int(const std::string & str);
+double to_double(const std::string & str);
+float to_float(const std::string & str);
 bool to_bool(const std::string & str);
 long to_long(const std::string & str);
 std::string to_string(int x); 
 std::string to_string(long x); 
 std::string to_string(double x); 
+std::string to_string(std::pair<int,int> p); 
 
 std::string trim(const std::string & str);
 
@@ -200,5 +216,53 @@ std::string join(const std::vector<std::string> & pieces,
 void splitup(std::vector<std::string> & vec, const std::string & str, const std::string & delimiter);
 
 double distance(int x1, int y1, int x2, int y2);
+
+
+template<class T>                         
+bool setwise_equal(T & v1, T & v2)
+{
+  bool ret = true;
+  
+  if (v1.size() != v2.size())
+    return false; 
+  
+  if (v1 == v2)  // this is always stronger
+    return true; 
+  
+  int size = v1.size(); 
+  
+  bool * v2flags = new bool[size];
+  
+  FORS(i, size) 
+    v2flags[i] = false; 
+  
+  FORS(i, size)
+  {    
+    bool match = false; 
+    
+    FORS(j, size)
+    {
+      if (!v2flags[j] && v1[i] == v2[j])
+      {
+        // match!
+        v2flags[j] = true; 
+        match = true; 
+        break; 
+      }
+    }
+    
+    if (!match)
+    {
+      ret = false; 
+      break; 
+    }
+  }  
+  
+  DELETEARR(v2flags); 
+  
+  return ret;
+}
+
+
 
 #endif

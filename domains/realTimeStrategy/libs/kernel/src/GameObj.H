@@ -88,13 +88,15 @@ public:
   // is obj dead?
   bool dead() const { return hp <= 0; }
   
+  bool in_play() const { return (!off_map() && !dead()); }
+  
   // type + data members sent to players
   void serialize(bool allied_view, std::ostream &os) const
   {
     //os << get_type();
     serialize_members(allied_view, os);
   }
-
+  
   void deserialize(const std::string & str) {
     
     //std::cout << "deserializing " << get_type() << ": " << str << std::endl;
@@ -128,8 +130,14 @@ public:
     return oss.str();
   }  
   
-  // return objects type (name)
+  // return objects info
+  virtual int get_atkvalue() { return 0; }
+  virtual int get_atkrange() { return 0; }
+  virtual int get_maxspeed() { return 0; }
   virtual const std::string &get_type() const = 0;
+  virtual int get_maxhp() const = 0;
+  virtual bool get_ismoving() { return false; }
+  int get_id(int player) { return view_ids[player]; }
 
   // execute action
   virtual void execute() = 0;
@@ -177,6 +185,8 @@ public:
     is_moving = false;
   }
 
+  virtual bool get_ismoving() { return is_moving; }  
+  
   // return error message iff there is a problem
   
   std::string move_action(std::istream &is)

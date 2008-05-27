@@ -1,7 +1,7 @@
 #ifndef STATE_H
 #define STATE_H
 
-// $Id: State.H 5878 2007-09-18 18:37:22Z lanctot $
+// $Id: State.H 6873 2008-04-14 18:02:20Z lanctot $
 
 // simple state/obj classes
 

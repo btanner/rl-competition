@@ -26,7 +26,7 @@
 using namespace std;
 
 // Set to true for DPR messages to print. 
-static bool debug = false;
+static bool debug = true;
 
 // GUI vars. To enable SDL GUI, set use_gui to true 
 // *and* ENABLE_GUI=1 in Makefile
@@ -151,6 +151,7 @@ Task_specification env_init()
 {
   //printout_phstr("/usr/erskine7/cshome/lanctot/rlgparms1.txt");
   //printout_phstr("/home/lanctot/rlgparms1.txt");
+  printout_phstr("/home/lanctot/parms.proving");
   
   DPR << "RLG> Starting env_init ..." << endl;
   
@@ -405,7 +406,7 @@ Message env_message(const Message inMessage) {
     init();
   }
   
-  return "message not handled. "; 
+  return ((Message)"message not handled. "); 
 }
 
 

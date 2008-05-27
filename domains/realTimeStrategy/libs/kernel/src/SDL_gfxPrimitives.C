@@ -1252,8 +1252,6 @@ int boxRGBA (SDL_Surface *dst, Sint16 x1, Sint16 y1,  Sint16 x2, Sint16 y2, Uint
 /* by Pete Shinners, pete@shinners.org                       */
 /* Originally from pygame, http://pygame.seul.org            */
 
-#define ABS(a) (((a)<0) ? -(a) : (a))
-
 int lineColor(SDL_Surface *dst, Sint16 x1, Sint16 y1, Sint16 x2, Sint16 y2, Uint32 color)
 {
  int pixx, pixy;

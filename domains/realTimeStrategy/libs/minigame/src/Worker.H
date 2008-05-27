@@ -36,6 +36,13 @@ public:
     attack_value = gp.worker_atk_value;
   }
 
+  virtual int get_atkvalue() { return attack_value; }  
+  virtual int get_atkrange() { return attack_range; }  
+  virtual int get_maxspeed() { return max_speed; }    
+  
+  virtual int get_maxhp() const 
+  { return state->gp.worker_hp; }    
+  
   virtual void serialize_members(bool allied_view, std::ostream &os) const
   {
     MobileObj<MiniGameState>::serialize_members(allied_view, os);

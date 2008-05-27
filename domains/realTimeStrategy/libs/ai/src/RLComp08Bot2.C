@@ -17,7 +17,6 @@
 using namespace std;
 
 #define SGN(x)          ((x) < 0 ? (-1) : 1)
-#define ABS(x)          ((x) < 0 ? (-(x)) : (x))
 
 //static bool debug = false; 
 

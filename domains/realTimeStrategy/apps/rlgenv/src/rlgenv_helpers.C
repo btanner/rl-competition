@@ -9,6 +9,7 @@
 #include "rlgenv_helpers.H"
 #include "RLComp08Bot1.H"
 #include "RLComp08Bot2.H"
+#include "RLComp08Bot3.H"
 
 using namespace std;
 
@@ -86,12 +87,14 @@ Player* get_opponent(MiniGameParameters * mgpPtr)
     return new RLComp08Bot1(0);
   if (mgpPtr->bot0 == "RLComp08Bot2")
     return new RLComp08Bot2(0);
+  if (mgpPtr->bot0 == "RLComp08Bot3")
+    return new RLComp08Bot3(0);
   
   // Default to training bot
   return new RLComp08Bot1(0);
 }
 
-void printout_phstr(char * parmsfile)
+void printout_phstr(const char * parmsfile)
 {
   ifstream file(parmsfile, ios::in);
   

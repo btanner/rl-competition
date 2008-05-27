@@ -16,6 +16,22 @@ int to_int(const string & str)
   return x;
 }
 
+double to_double(const string & str)
+{
+  istringstream is(str);
+  double x; 
+  is >> x;
+  return x;
+}
+
+float to_float(const string & str)
+{
+  istringstream is(str);
+  float x; 
+  is >> x;
+  return x;
+}
+
 bool to_bool(const std::string & str)
 {
   std::istringstream is(str);
@@ -50,6 +66,13 @@ string to_string(double x)
 {
   ostringstream oss; 
   oss << x; 
+  return oss.str();
+}
+
+string to_string(pair<int,int> p)
+{
+  ostringstream oss; 
+  oss << "(" << p.first << "," << p.second << ")"; 
   return oss.str();
 }
 
@@ -192,8 +215,9 @@ std::ostream &form(std::ostream &os, const char *fmt, va_list ap)
   os << msg;
   free(msg);
   return os;
-}
+}                                              
 
 #endif
+                        
 
 

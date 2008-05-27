@@ -13,8 +13,9 @@
 using namespace std;
 
 // these are not used!
-bool MiniGameState::finished() const { return false; }
+bool MiniGameState::finished() const { return true; }
 int MiniGameState::score(int /*player*/) const { return 0; }
+
 
 void MiniGameState::object_setup()
 {
@@ -350,6 +351,21 @@ void MiniGameState::from_string(const std::string & statestr)
   apply_new_objs(); 
 }
 
+void MiniGameState::get_marines(int player, vector<GameObj<MiniGameState>*> & marines)
+{
+  FORALL (all_objs, i) {
+    GameObj<MiniGameState>* objPtr = *i;
+   
+    if (   objPtr->get_type() == "marine" && objPtr->hp >= 1 
+        && objPtr->owner == player)
+    {
+      //Marine* mptr = (Marine*)objPtr; 
+      marines.push_back(objPtr);
+    }
+  }
+}
+
+
 void set_parm(MiniGameParameters * mgpPtr, string parm, int val)
 {
   if      (parm == "width")                 mgpPtr->width = val;
@@ -391,7 +407,10 @@ void set_parm(MiniGameParameters * mgpPtr, string parm, int val)
   else if (parm == "mineralpatchsightrange")  mgpPtr->mineral_patch_sight_range = val;
   else if (parm == "mineralpatchhp")          mgpPtr->mineral_patch_hp = val;
   else if (parm == "mineralpatcharmor")       mgpPtr->mineral_patch_armor = val;  
-  else if (parm == "mineralpatchcapacity")    mgpPtr->mineral_patch_capacity = val;    
+  else if (parm == "mineralpatchcapacity")    mgpPtr->mineral_patch_capacity = val;   
+   
+  else 
+    cout << "Undefined parm " << parm << endl; 
 }
 
 void load_parms(char * parmsfile, MiniGameParameters * mgpPtr)
@@ -407,6 +426,9 @@ void load_parms(char * parmsfile, MiniGameParameters * mgpPtr)
   
   while (getline(file, line)) {
     //cout << line << endl;
+    
+    if (line.at(0) == '#')
+      continue; 
     
     vector<string> parts;
     boost::split(parts, line, boost::is_any_of(","));
@@ -426,4 +448,6 @@ void load_parms(char * parmsfile, MiniGameParameters * mgpPtr)
   
   file.close();
 }
+
+
 

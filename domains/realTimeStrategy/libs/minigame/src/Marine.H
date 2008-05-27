@@ -27,6 +27,13 @@ public:
     attack_value = state->gp.marine_atk_value;
     attack_range = state->gp.marine_atk_range;
   }
+  
+  virtual int get_atkvalue() { return attack_value; }  
+  virtual int get_atkrange() { return attack_range; }  
+  virtual int get_maxspeed() { return max_speed; }
+  
+  virtual int get_maxhp() const 
+  { return state->gp.marine_hp; }  
 
   virtual bool deserialize_member(const std::string & key, const std::string & val)
   {

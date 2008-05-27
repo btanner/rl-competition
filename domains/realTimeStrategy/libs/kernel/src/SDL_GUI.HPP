@@ -1,7 +1,7 @@
 /** @file GUI.C
     @see GUI.H
 
-    $Id: SDL_GUI.HPP 5655 2007-08-12 22:45:36Z lanctot $
+    $Id: SDL_GUI.HPP 6873 2008-04-14 18:02:20Z lanctot $
     $Source$
 */
 

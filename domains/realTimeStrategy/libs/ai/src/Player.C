@@ -10,26 +10,34 @@
 
 using namespace std; 
 
+static bool debug = false; 
+
 Player::Player() 
 {
   statePtr = 0; 
   parmsPtr = 0;
   do_not_free = false;
+  fullview = false;
 }
 
 Player::Player(int num) 
 {
   statePtr = 0;
   parmsPtr = 0;
+  do_not_free = false;
   playerNum = num; 
+  fullview = false;
 }
 
 Player::~Player()
-{
+{  
   if (statePtr != 0 && !do_not_free)
+  {
     delete statePtr;
+    statePtr = NULL;
+  }
   
-  // parms are se externally either way, so no freeing needed
+  // parms are set externally either way, so no freeing needed
 }
 
 string Player::rnd_move_action(int objId, int speed) 
@@ -59,6 +67,11 @@ void Player::set_state(MiniGameState * stateptr)
   do_not_free = true;
 }
 
+void Player::set_fullview(bool _fv)
+{
+  fullview = _fv;   
+}
+
 void Player::set_parms(MiniGameParameters * parmsptr)
 {
   parmsPtr = parmsptr;
@@ -75,7 +88,11 @@ std::string Player::compose_move_action(int id, int x, int y, int speed)
 {
   ostringstream oss; 
   if (x < 0 || y < 0)
+  {
+    REM2("playerNum = ", playerNum);  
     ERR("bad values for move parms!");
+  }
+  
   oss << id << " move " << x << " " << y << " " << speed; 
   return oss.str(); 
 }
@@ -100,11 +117,9 @@ bool Player::onMap(GameObj<MiniGameState>* ptr)
 /****** Null Player ******/
  
 NullPlayer::NullPlayer(int num)
+  : Player(num)
 {
   name = "NullPlayer";
-  statePtr = 0; 
-  parmsPtr = 0;
-  playerNum = num;   
 }
 
 NullPlayer::~NullPlayer()
@@ -120,16 +135,13 @@ string NullPlayer::receive_actions(string view)
 // Other players go down here: 
 
 RandomPlayer::RandomPlayer(int num)
+  : Player(num)
 {
   name = "RandomPlayer";
-  statePtr = 0; 
-  playerNum = num;   
 }
 
 RandomPlayer::~RandomPlayer()
 {
-  if (statePtr != 0)
-     delete statePtr;  
 }
 
 string RandomPlayer::receive_actions(string view)
@@ -142,7 +154,7 @@ string RandomPlayer::receive_actions(string view)
   
   vector<string> actions;
 
-  cout << "RP" << playerNum << ": Iterating through objects" << endl; 
+  DPR << "RP" << playerNum << ": Iterating through objects" << endl; 
   
   FORALL(statePtr->all_objs, iter)
   {
@@ -156,10 +168,10 @@ string RandomPlayer::receive_actions(string view)
     {
       Worker* workerPtr  = (Worker*)objPtr;
       
-      cout << "  found worker, id=" << objId << " : " << oss.str() << endl;
+      DPR << "  found worker, id=" << objId << " : " << oss.str() << endl;
       
       string act = rnd_move_action(objId, workerPtr->max_speed); 
-      cout << "action is " << act << endl; 
+      DPR << "action is " << act << endl; 
           
       actions.push_back(act); 
     }
