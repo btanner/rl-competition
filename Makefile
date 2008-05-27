@@ -7,6 +7,7 @@ ENV_NETWORKED=1
 EXP_NETWORKED=1
 
 CFLAGS = -I$(RL_GLUE_PATH) -O2
+LDFLAGS = -lm 
 
 all: $(BIN_PATH)/RL_glue
 	cd ./agents/randomAgentJava/ && make
