@@ -151,7 +151,8 @@ Task_specification env_init()
 {
   //printout_phstr("/usr/erskine7/cshome/lanctot/rlgparms1.txt");
   //printout_phstr("/home/lanctot/rlgparms1.txt");
-  printout_phstr("/home/lanctot/parms.proving");
+  //printout_phstr("/home/lanctot/parms.proving");
+  printout_phstr("/usr/scratch/lanctot/parms.proving"); 
   
   DPR << "RLG> Starting env_init ..." << endl;
   

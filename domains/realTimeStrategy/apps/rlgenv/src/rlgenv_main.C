@@ -27,6 +27,9 @@
 #include <RL_common.h>
 #include <Network/RL_network.h>
 
+/* So I can print out the parm holder string in main(). */
+/*#include "rlgenv_helpers.H"*/
+
 /* Provide forward declaration of environment interface */
 extern Task_specification env_init();
 extern Observation env_start();
@@ -251,6 +254,10 @@ static void runEnvironmentEventLoop(int theConnection) {
 }
 
 int main(int argc, char** argv) {
+  
+  /* used to print out a serialized parm holder */ 
+  /* printout_phstr("/usr/scratch/lanctot/parms.proving"); */ 
+  
   int theConnection = 0;
 
   const char *usage = "The following environment variables are used by the environment to control its function:\n"
