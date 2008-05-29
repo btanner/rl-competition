@@ -26,7 +26,7 @@
 using namespace std;
 
 // Set to true for DPR messages to print. 
-static bool debug = true;
+static bool debug = false;
 
 // GUI vars. To enable SDL GUI, set use_gui to true 
 // *and* ENABLE_GUI=1 in Makefile

@@ -88,7 +88,10 @@ Player* get_opponent(MiniGameParameters * mgpPtr)
   if (mgpPtr->bot0 == "RLComp08Bot2")
     return new RLComp08Bot2(0);
   if (mgpPtr->bot0 == "RLComp08Bot3")
+  {
+    //system("echo bot3 > /tmp/test");
     return new RLComp08Bot3(0);
+  }
   
   // Default to training bot
   return new RLComp08Bot1(0);
