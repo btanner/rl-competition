@@ -27,6 +27,7 @@ using namespace std;
 
 // Set to true for DPR messages to print. 
 static bool debug = false;
+//static int episode = 0;
 
 // GUI vars. To enable SDL GUI, set use_gui to true 
 // *and* ENABLE_GUI=1 in Makefile
@@ -170,6 +171,9 @@ Task_specification env_init()
 
 Observation env_start()
 {
+  //episode++; 
+  //cout << "E" << episode << ". " << endl; 
+
   DPR << endl << "### Starting time step " << time_step << endl; 
   DPR << "RLG> Starting env_start ..." << endl;
   

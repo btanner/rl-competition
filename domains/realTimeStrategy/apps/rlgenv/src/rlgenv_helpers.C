@@ -83,7 +83,7 @@ void copy_parms(ParameterHolder * phPtr, MiniGameParameters * mgpPtr)
 
 Player* get_opponent(MiniGameParameters * mgpPtr)
 {
-  if (mgpPtr->bot0 == "RLComp08Bot1")
+  if (mgpPtr->bot0 == "RLComp08Bot1")  
     return new RLComp08Bot1(0);
   if (mgpPtr->bot0 == "RLComp08Bot2")
     return new RLComp08Bot2(0);
@@ -94,7 +94,8 @@ Player* get_opponent(MiniGameParameters * mgpPtr)
   }
   
   // Default to training bot
-  return new RLComp08Bot1(0);
+  //return new RLComp08Bot1(0);
+  return new RLComp08Bot3(0);
 }
 
 void printout_phstr(const char * parmsfile)

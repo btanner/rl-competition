@@ -65,6 +65,7 @@ void Player::set_state(MiniGameState * stateptr)
 {
   statePtr = stateptr; 
   do_not_free = true;
+  fullview = true; 
 }
 
 void Player::set_fullview(bool _fv)

@@ -46,7 +46,7 @@ bool DefaultPlayer::can_afford_marine()
 string DefaultPlayer::receive_actions(string view)
 {
   if (!fullview)  // If fullview, the state is set using set_state
-    build_state(view); 
+    build_state(view);            
   
   timestep++; 
   minerals = statePtr->player_infos[playerNum].pd.minerals;
