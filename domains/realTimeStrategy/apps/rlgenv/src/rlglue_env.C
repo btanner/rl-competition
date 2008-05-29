@@ -26,7 +26,7 @@
 using namespace std;
 
 // Set to true for DPR messages to print. 
-static bool debug = false;
+static bool debug = false; 
 //static int episode = 0;
 
 // GUI vars. To enable SDL GUI, set use_gui to true 
