@@ -1,0 +1,5 @@
+NOTE: Not all of the stuff in this directory is ready for production use.
+
+The environments that were used as main events in the competition should be in good shape and should implement all features, including being able to get/set random seeds and create logs of the agent's trajectories that could be used for later playback in the Log Player project.  Other projects like Acrobot work fine, but don't have all of these advanced features implemented.
+
+Finally, projects like Octopus or Keepaway are java projects that are not near complete, they are side projects that will sometime be under active development but are not currently useable.
